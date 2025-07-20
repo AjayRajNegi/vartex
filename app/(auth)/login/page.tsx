@@ -20,7 +20,7 @@ export default function LoginPage() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex flex-col gap-4">
         <Button className="w-full" variant="outline">
           <GithubIcon className="size-4" /> Sign in with Github
         </Button>
@@ -36,6 +36,8 @@ export default function LoginPage() {
             <Label htmlFor="email">Email</Label>
             <Input type="email" placeholder="m@example.com" />
           </div>
+
+          <Button>Continue with Email</Button>
         </div>
       </CardContent>
     </Card>
