@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { GithubIcon } from "lucide-react";
 
 export default function LoginPage() {
@@ -27,6 +28,12 @@ export default function LoginPage() {
           <span className="relative z-10 bg-card px-2 text-muted-foreground">
             Or continue with
           </span>
+        </div>
+
+        <div>
+          <div>
+            <Label>Email</Label>
+          </div>
         </div>
       </CardContent>
     </Card>
