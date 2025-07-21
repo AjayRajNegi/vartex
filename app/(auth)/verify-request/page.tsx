@@ -13,16 +13,33 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
+import { Loader2 } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 export default function VerifyRequest() {
+  const params = useSearchParams();
+  const email = params.get("email") as string;
+  const router = useRouter();
   const [emailPending, startTransition] = useTransition();
   const [otp, setOtp] = useState("");
+  const isOtpCompleted = otp.length === 6;
 
   function verifyOTP() {
     startTransition(async () => {
       await authClient.signIn.emailOtp({
-        email,
+        email: email,
+        otp: otp,
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success("Email Verified!");
+            router.push("/");
+          },
+          onError: () => {
+            toast.error("Error verifying Email/OTP.");
+          },
+        },
       });
     });
   }
@@ -58,7 +75,20 @@ export default function VerifyRequest() {
             Enter the 6-digit code sent to your email.
           </p>
         </div>
-        <Button className="w-full">Verify Account</Button>
+        <Button
+          onClick={verifyOTP}
+          disabled={emailPending || !isOtpCompleted}
+          className="w-full"
+        >
+          {emailPending ? (
+            <>
+              <Loader2 className="size-4 animate-spin" />
+              <span>Loading...</span>
+            </>
+          ) : (
+            <>Verify Account</>
+          )}
+        </Button>
       </CardContent>
     </Card>
   );
