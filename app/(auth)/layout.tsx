@@ -1,8 +1,8 @@
-import { buttonVariants } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { ReactNode } from "react";
+import { ArrowLeft } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -27,7 +27,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         </Link>
         {children}
 
-        <div className="text—batance text—center text—xs text-muted-foreground">
+        <div className="text-center text—xs text-muted-foreground px-14">
           By clicking continue, you agree to our{" "}
           <span className="hover:text—primary hover:underline">
             Terms of service
