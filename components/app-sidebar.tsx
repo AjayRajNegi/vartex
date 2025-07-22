@@ -1,35 +1,33 @@
 "use client";
-
+import Link from "next/link";
 import * as React from "react";
+import Image from "next/image";
 import {
+  IconHelp,
+  IconUsers,
+  IconSearch,
+  IconFileAi,
+  IconFolder,
   IconCamera,
   IconChartBar,
-  IconDashboard,
-  IconFileAi,
-  IconFileDescription,
-  IconFolder,
-  IconHelp,
-  IconListDetails,
-  IconSearch,
   IconSettings,
-  IconUsers,
+  IconDashboard,
+  IconListDetails,
+  IconFileDescription,
 } from "@tabler/icons-react";
-
-import { NavMain } from "@/components/nav-main";
-import { NavSecondary } from "@/components/nav-secondary";
-import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
-  SidebarContent,
+  SidebarMenu,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
+  SidebarContent,
   SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
-import Image from "next/image";
 import Logo from "@/public/logo.png";
+import { NavUser } from "@/components/nav-user";
+import { NavMain } from "@/components/nav-main";
+import { NavSecondary } from "@/components/nav-secondary";
 
 const data = {
   navMain: [

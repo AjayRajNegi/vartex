@@ -1,8 +1,8 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export function useSignout() {
   const router = useRouter();

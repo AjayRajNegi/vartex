@@ -1,33 +1,30 @@
 "use client";
 
 import {
-  IconCreditCard,
+  IconLogout,
   IconDashboard,
   IconDotsVertical,
-  IconLogout,
-  IconNotification,
 } from "@tabler/icons-react";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
+  DropdownMenuGroup,
   DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
   useSidebar,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { authClient } from "@/lib/auth-client";
 import { HomeIcon, Tv2 } from "lucide-react";
-import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 import { useSignout } from "@/hooks/use-signout";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function NavUser() {
   const { data: session, isPending } = authClient.useSession();
