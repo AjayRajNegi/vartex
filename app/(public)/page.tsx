@@ -1,9 +1,4 @@
-"use client";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ui/themeToggle";
+import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -42,19 +37,6 @@ const features: fearturesProps[] = [
 ];
 
 export default function Home() {
-  const router = useRouter();
-  const { data: session } = authClient.useSession();
-
-  async function signOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/");
-          toast.success("Signed out SUccessfully!!");
-        },
-      },
-    });
-  }
   return (
     <>
       <section className="relative py-20">
@@ -88,7 +70,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-32">
         {features.map((feature, index) => (
           <Card key={index} className="hover:shadow-lg transition-shadow">
             <CardHeader>
