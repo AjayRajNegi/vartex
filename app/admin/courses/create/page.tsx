@@ -1,5 +1,5 @@
 "use client";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,11 +8,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { courseSchema, CourseSchemaType } from "@/lib/zodSchema";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import slugify from "slugify";
 
 export default function CourseCreationPage() {
   const form = useForm<CourseSchemaType>({
@@ -56,7 +65,47 @@ export default function CourseCreationPage() {
         <CardContent>
           <Form {...form}>
             <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField />
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Title" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex gap-4 items-end">
+                <FormField
+                  control={form.control}
+                  name="slug"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Slug</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Slug" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  type="button"
+                  className="w-fit"
+                  onClick={() => {
+                    const titleValue = form.getValues("title");
+                    const slug = slugify(titleValue);
+                    form.setValue("slug", slug, { shouldValidate: true });
+                  }}
+                >
+                  Generate Slug
+                  <SparkleIcon className="ml-1 size-6" />
+                </Button>
+              </div>
             </form>
           </Form>
         </CardContent>
