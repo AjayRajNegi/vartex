@@ -8,6 +8,7 @@ import {
   protectSignup,
   slidingWindow,
 } from "@arcjet/next";
+
 import ip from "@arcjet/ip";
 import arcjet from "@/lib/arcjet";
 import { auth } from "@/lib/auth";

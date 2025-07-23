@@ -1,26 +1,25 @@
-import { type Editor } from "@tiptap/react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { Toggle } from "../ui/toggle";
 import {
-  AlignCenter,
-  AlignLeft,
-  AlignRight,
+  Undo,
   Bold,
+  List,
+  Redo,
+  Italic,
   Heading1,
-  Heading1Icon,
   Heading2,
   Heading3,
-  Italic,
-  List,
+  AlignLeft,
+  AlignRight,
+  AlignCenter,
   ListOrdered,
-  Redo,
   Strikethrough,
-  Undo,
 } from "lucide-react";
+
 import { cn } from "@/lib/utils";
-import TextAlign from "@tiptap/extension-text-align";
 import { Button } from "../ui/button";
+import { Toggle } from "../ui/toggle";
+import { type Editor } from "@tiptap/react";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 interface iAppsProps {
   editor: Editor | null;

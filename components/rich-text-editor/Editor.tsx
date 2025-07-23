@@ -1,8 +1,8 @@
 "use client";
-import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import { Menubar } from "./Menubar";
+import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
+import { EditorContent, useEditor } from "@tiptap/react";
 
 export function RichTextEditor({ field }: { field: any }) {
   const editor = useEditor({
