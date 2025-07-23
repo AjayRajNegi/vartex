@@ -4,6 +4,20 @@ export const courseLevels = ["Beginner", "Advanced", "Intermediate"] as const;
 
 export const courseStatus = ["Archived", "Published", "Draft"] as const;
 
+export const courseCategories = [
+  "Development",
+  "Business",
+  "Finance",
+  "IT & Software",
+  "Office Productivity",
+  "Personal Development",
+  "Design",
+  "Marketing",
+  "Health & Fitness",
+  "Music",
+  "Teaching & Academics",
+] as const;
+
 export const courseSchema = z.object({
   title: z
     .string()
@@ -21,7 +35,7 @@ export const courseSchema = z.object({
   level: z.enum(["Beginner", "Intermmediate", "Advanced"], {
     message: "Invalid course level",
   }),
-  category: z.string().min(1, { message: "Category is required" }),
+  category: z.enum(courseCategories, { message: "Category is required." }),
   smallDescription: z
     .string()
     .min(3, { message: "Small description must be at least 3 characters" })
