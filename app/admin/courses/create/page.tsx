@@ -37,6 +37,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, PlusIcon, SparkleIcon } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
+import { Uploader } from "@/components/file-uploader/Uploader";
 
 export default function CourseCreationPage() {
   const form = useForm<CourseSchemaType>({
@@ -161,7 +162,7 @@ export default function CourseCreationPage() {
                   <FormItem className="w-full">
                     <FormLabel>Thumbnail Image</FormLabel>
                     <FormControl>
-                      <Input placeholder="Thumbnail url" {...field} />
+                      <Uploader />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
