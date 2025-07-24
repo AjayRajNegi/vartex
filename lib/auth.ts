@@ -1,3 +1,4 @@
+import "server-only";
 import { prisma } from "./db";
 import { resend } from "./resend";
 import { betterAuth } from "better-auth";
