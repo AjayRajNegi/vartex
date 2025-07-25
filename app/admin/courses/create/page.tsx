@@ -57,7 +57,9 @@ export default function CourseCreationPage() {
     },
   });
 
-  function onSubmit(values: CourseSchemaType) {}
+  function onSubmit(values: CourseSchemaType) {
+    console.log(values);
+  }
   return (
     <>
       <div className="flex items-center gap-4">
@@ -228,14 +230,15 @@ export default function CourseCreationPage() {
                 <FormField
                   control={form.control}
                   name="duration"
-                  render={({ field }) => (
+                  render={({ field: { onChange, value, ...rest } }) => (
                     <FormItem className="w-full">
                       <FormLabel>Duration</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Duration (hours)"
+                          {...rest}
                           type="number"
-                          {...field}
+                          value={value}
+                          onChange={(e) => onChange(Number(e.target.value))}
                         />
                       </FormControl>
                       <FormMessage />
@@ -245,11 +248,16 @@ export default function CourseCreationPage() {
                 <FormField
                   control={form.control}
                   name="price"
-                  render={({ field }) => (
+                  render={({ field: { onChange, value, ...rest } }) => (
                     <FormItem className="w-full">
                       <FormLabel>Price</FormLabel>
                       <FormControl>
-                        <Input placeholder="Price" {...field} />
+                        <Input
+                          placeholder="Price"
+                          type="number"
+                          {...rest}
+                          onChange={(e) => onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
