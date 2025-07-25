@@ -5,8 +5,7 @@ import { NextResponse } from "next/server";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { requireAdmin } from "@/app/data/admin/require-admin";
 
 const aj = arcjet
   .withRule(detectBot({ mode: "LIVE", allow: [] }))
@@ -20,9 +19,7 @@ export const fileUploadSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await requireAdmin();
   try {
     const decision = await aj.protect(request, {
       fingerprint: session?.user.id as string,

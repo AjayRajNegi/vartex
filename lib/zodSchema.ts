@@ -32,7 +32,7 @@ export const courseSchema = z.object({
     .number()
     .min(1, { message: "Duration must be at least 1" })
     .max(500, { message: "Duration must not exceed 500" }),
-  level: z.enum(["Beginner", "Intermmediate", "Advanced"], {
+  level: z.enum(["Beginner", "Intermediate", "Advanced"], {
     message: "Invalid course level",
   }),
   category: z.enum(courseCategories, { message: "Category is required." }),

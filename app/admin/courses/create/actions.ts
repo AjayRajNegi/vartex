@@ -1,19 +1,31 @@
 "use server";
 
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
-
+import { requireAdmin } from "@/app/data/admin/require-admin";
 import { courseSchema, CourseSchemaType } from "@/lib/zodSchema";
-import { headers } from "next/headers";
+import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import { request } from "@arcjet/next";
+const aj = arcjet
+  .withRule(detectBot({ mode: "LIVE", allow: [] }))
+  .withRule(fixedWindow({ mode: "LIVE", window: "1m", max: 5 }));
 
 export async function CreateCourse(
   values: CourseSchemaType
 ): Promise<ApiResponse> {
+  const session = await requireAdmin();
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
+    const req = await request();
+    const decision = await aj.protect(req, {
+      fingerprint: session.user.id,
     });
+
+    if (decision.isDenied()) {
+      return {
+        status: "error",
+        message: "Errrrrr",
+      };
+    }
     const validation = courseSchema.safeParse(values);
     if (!validation.success) {
       return {
