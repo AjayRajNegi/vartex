@@ -1,6 +1,6 @@
 import { S3 } from "@/lib/s3Client";
-import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { NextResponse } from "next/server";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 export async function DELETE(request: Request) {
   try {

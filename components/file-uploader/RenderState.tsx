@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
-import { CloudUploadIcon, ImageIcon, Loader2, XIcon } from "lucide-react";
-import { Button } from "../ui/button";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
+import { CloudUploadIcon, ImageIcon, Loader2, XIcon } from "lucide-react";
 
 export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
   return (

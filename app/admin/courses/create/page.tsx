@@ -28,16 +28,17 @@ import {
   SelectContent,
   SelectTrigger,
 } from "@/components/ui/select";
+
 import Link from "next/link";
 import slugify from "slugify";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Uploader } from "@/components/file-uploader/Uploader";
 import { ArrowLeft, PlusIcon, SparkleIcon } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
-import { Uploader } from "@/components/file-uploader/Uploader";
 
 export default function CourseCreationPage() {
   const form = useForm<CourseSchemaType>({

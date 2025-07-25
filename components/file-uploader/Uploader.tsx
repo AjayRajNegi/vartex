@@ -1,8 +1,4 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
-import { FileRejection, useDropzone } from "react-dropzone";
-import { Card, CardContent } from "../ui/card";
-import { cn } from "@/lib/utils";
 import {
   RenderEmptyState,
   RenderErrorState,
@@ -10,7 +6,11 @@ import {
   RenderUploadingState,
 } from "./RenderState";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 import { v4 as uuidv4 } from "uuid";
+import { Card, CardContent } from "../ui/card";
+import { useCallback, useEffect, useState } from "react";
+import { FileRejection, useDropzone } from "react-dropzone";
 
 interface UploaderState {
   id: string | null;
