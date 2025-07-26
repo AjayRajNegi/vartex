@@ -18,9 +18,27 @@ import {
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
+import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 
-export function CourseStructure() {
-  const [items, setItems] = useState(["1", "2", "3"]);
+interface iAppProps {
+  data: AdminCourseSingularType;
+}
+
+export function CourseStructure({ data }: iAppProps) {
+  const initialItems =
+    data.chapter.map((chapter) => ({
+      id: chapter.id,
+      title: chapter.title,
+      order: chapter.position,
+      isOpen: true,
+      lessons: chapter.lessons.map((lesson) => ({
+        id: lesson.id,
+        title: lesson.title,
+        order: lesson.position,
+      })),
+    })) || [];
+
+  const [items, setItems] = useState(initialItems);
   function SortableItem(props) {
     const { attributes, listeners, setNodeRef, transform, transition } =
       useSortable({ id: props.id });
@@ -68,8 +86,8 @@ export function CourseStructure() {
         </CardHeader>
         <CardContent>
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
-            {items.map((id) => (
-              <SortableItem key={id} id={id} />
+            {items.map((item) => (
+              <SortableItem key={item.id}></SortableItem>
             ))}
           </SortableContext>
         </CardContent>

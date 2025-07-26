@@ -3,6 +3,12 @@ import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import { courseSchema, CourseSchemaType } from "@/lib/zodSchema";
+import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import { request } from "@arcjet/next";
+
+const aj = arcjet
+  .withRule(detectBot({ mode: "LIVE", allow: [] }))
+  .withRule(fixedWindow({ mode: "LIVE", window: "1m", max: 5 }));
 
 export async function editCourse(
   data: CourseSchemaType,
@@ -11,6 +17,17 @@ export async function editCourse(
   const user = await requireAdmin();
 
   try {
+    const req = await request();
+    const decision = await aj.protect(req, {
+      fingerprint: user.user.id,
+    });
+
+    if (decision.isDenied()) {
+      return {
+        status: "error",
+        message: "Errrrrr",
+      };
+    }
     const result = courseSchema.safeParse(data);
     if (!result.success) {
       return {
