@@ -8,6 +8,7 @@ import {
 import { EditCourseForm } from "./_components/EditCourseForm";
 import { adminGetCourse } from "@/app/data/admin/admin-get-course";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CourseStructure } from "./_components/CourseStructure";
 
 type Params = Promise<{ courseId: string }>;
 
@@ -36,6 +37,19 @@ export default async function EditCourse({ params }: { params: Params }) {
             </CardHeader>
             <CardContent>
               <EditCourseForm data={data} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="course-structure">
+          <Card>
+            <CardHeader>
+              <CardTitle>Course Structure</CardTitle>
+              <CardDescription>
+                Here you can update your Course Structure.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <CourseStructure />
             </CardContent>
           </Card>
         </TabsContent>
