@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Card, CardContent } from "../ui/card";
 import { useCallback, useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import { useConstruct } from "@/hooks/use-construct-url";
 
 interface UploaderState {
   id: string | null;
@@ -28,6 +29,7 @@ interface iAppProps {
   onChange?: (value: string) => void;
 }
 export function Uploader({ value, onChange }: iAppProps) {
+  const fileUrl = useConstruct(value || "");
   const [fileState, setFileState] = useState<UploaderState>({
     id: null,
     file: null,
@@ -37,6 +39,7 @@ export function Uploader({ value, onChange }: iAppProps) {
     error: false,
     fileType: "image",
     key: value,
+    objectUrl: fileUrl,
   });
 
   async function uploadFile(file: File) {

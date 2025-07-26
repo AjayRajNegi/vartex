@@ -31,3 +31,7 @@ export async function adminGetCourse(id: string) {
 
   return data;
 }
+
+export type AdminCourseSingularType = Awaited<
+  ReturnType<typeof adminGetCourse>
+>;
