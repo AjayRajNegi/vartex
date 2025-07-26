@@ -21,21 +21,21 @@ import {
   SelectContent,
   SelectTrigger,
 } from "@/components/ui/select";
+
 import slugify from "slugify";
 import { toast } from "sonner";
 import { useTransition } from "react";
-// import { CreateCourse } from "./actions";
+import { editCourse } from "../actions";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { tryCatch } from "@/hooks/try-catch";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Uploader } from "@/components/file-uploader/Uploader";
-import { Button } from "@/components/ui/button";
-import { RichTextEditor } from "@/components/rich-text-editor/Editor";
 import { Loader2, PlusIcon, SparkleIcon } from "lucide-react";
-import { editCourse } from "../actions";
+import { Uploader } from "@/components/file-uploader/Uploader";
+import { RichTextEditor } from "@/components/rich-text-editor/Editor";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 
 interface iAppProps {

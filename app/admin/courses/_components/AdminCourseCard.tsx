@@ -1,25 +1,26 @@
-import { AdminCourseType } from "@/app/data/admin/admin-get-courses";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useConstruct } from "@/hooks/use-construct-url";
-import {
-  ArrowRight,
   Eye,
-  MoreVertical,
   Pencil,
   School,
-  TimerIcon,
   Trash2,
+  TimerIcon,
+  ArrowRight,
+  MoreVertical,
 } from "lucide-react";
-import Image from "next/image";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+
 import Link from "next/link";
+import Image from "next/image";
+import { useConstruct } from "@/hooks/use-construct-url";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { AdminCourseType } from "@/app/data/admin/admin-get-courses";
 
 interface iAppProps {
   data: AdminCourseType;
