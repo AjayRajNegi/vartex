@@ -1,22 +1,23 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   InputOTP,
-  InputOTPGroup,
   InputOTPSlot,
+  InputOTPGroup,
 } from "@/components/ui/input-otp";
-import { authClient } from "@/lib/auth-client";
-import { Loader2 } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
+import { useState, useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function VerifyRequest() {
   const params = useSearchParams();

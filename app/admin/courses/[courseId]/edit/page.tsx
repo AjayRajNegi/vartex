@@ -6,9 +6,9 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { EditCourseForm } from "./_components/EditCourseForm";
+import { CourseStructure } from "./_components/CourseStructure";
 import { adminGetCourse } from "@/app/data/admin/admin-get-course";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CourseStructure } from "./_components/CourseStructure";
 
 type Params = Promise<{ courseId: string }>;
 

@@ -8,13 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
+import { useState, useTransition } from "react";
 import { GithubIcon, Loader, Loader2, Send } from "lucide-react";
-import { useRouter } from "next/navigation";
 export default function LoginForm() {
   const router = useRouter();
   const [githubPending, startGithubTransition] = useTransition();

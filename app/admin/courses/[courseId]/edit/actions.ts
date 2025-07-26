@@ -1,10 +1,10 @@
 "use server";
 import { prisma } from "@/lib/db";
+import { request } from "@arcjet/next";
 import { ApiResponse } from "@/lib/types";
 import { requireAdmin } from "@/app/data/admin/require-admin";
-import { courseSchema, CourseSchemaType } from "@/lib/zodSchema";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
-import { request } from "@arcjet/next";
+import { courseSchema, CourseSchemaType } from "@/lib/zodSchema";
 
 const aj = arcjet
   .withRule(detectBot({ mode: "LIVE", allow: [] }))

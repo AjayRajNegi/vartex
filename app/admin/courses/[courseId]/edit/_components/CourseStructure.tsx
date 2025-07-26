@@ -1,37 +1,38 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Trash2,
+  FileText,
+  ChevronDown,
+  ChevronRight,
+  GripVertical,
+} from "lucide-react";
 import {
   DndContext,
-  DraggableSyntheticListeners,
-  KeyboardSensor,
-  PointerSensor,
-  rectIntersection,
   useSensor,
   useSensors,
+  PointerSensor,
+  KeyboardSensor,
+  rectIntersection,
+  DraggableSyntheticListeners,
 } from "@dnd-kit/core";
 import {
   arrayMove,
+  useSortable,
   SortableContext,
   sortableKeyboardCoordinates,
-  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { ReactNode, useState } from "react";
-import { CSS } from "@dnd-kit/utilities";
-import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
+
+import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
-import {
-  ChevronDown,
-  ChevronRight,
-  FileText,
-  GripVertical,
-  Trash2,
-} from "lucide-react";
+import { CSS } from "@dnd-kit/utilities";
+import { ReactNode, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
-import Link from "next/link";
+import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
+import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface iAppProps {
   data: AdminCourseSingularType;
