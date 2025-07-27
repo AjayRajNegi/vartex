@@ -15,11 +15,12 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { GithubIcon, Loader, Loader2, Send } from "lucide-react";
+
 export default function LoginForm() {
   const router = useRouter();
-  const [githubPending, startGithubTransition] = useTransition();
-  const [emailPending, startEmailTransition] = useTransition();
   const [email, setEmail] = useState("");
+  const [emailPending, startEmailTransition] = useTransition();
+  const [githubPending, startGithubTransition] = useTransition();
 
   async function signInWithGithub() {
     startGithubTransition(async () => {
