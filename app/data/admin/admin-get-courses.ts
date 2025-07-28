@@ -1,8 +1,10 @@
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "./require-admin";
 
+// Asynchronous function to fetch a list of courses for admin users
 export async function adminGetCourses() {
   await requireAdmin();
+
   const data = await prisma.course.findMany({
     orderBy: { createdAt: "desc" },
     select: {
@@ -21,4 +23,5 @@ export async function adminGetCourses() {
   return data;
 }
 
+// Define a TypeScript type for a single course returned from adminGetCourses
 export type AdminCourseType = Awaited<ReturnType<typeof adminGetCourses>>[0];
