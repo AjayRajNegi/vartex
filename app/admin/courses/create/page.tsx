@@ -108,9 +108,11 @@ export default function CourseCreationPage() {
           <Form {...form}>
             <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
-                control={form.control}
+                control={form.control} //Hook Form’s control object, which manages the state
                 name="title"
-                render={({ field }) => (
+                render={(
+                  { field } // Provides React Hook Form's field props (e.g. onChange, value, etc.)
+                ) => (
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
