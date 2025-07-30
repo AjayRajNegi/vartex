@@ -5,14 +5,16 @@ import {
   RenderUploadedState,
   RenderUploadingState,
 } from "./RenderState";
+
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { v4 as uuidv4 } from "uuid";
 import { Card, CardContent } from "../ui/card";
 import { useCallback, useEffect, useState } from "react";
-import { FileRejection, useDropzone } from "react-dropzone";
 import { useConstruct } from "@/hooks/use-construct-url";
+import { FileRejection, useDropzone } from "react-dropzone";
 
+// File uploader state structure
 interface UploaderState {
   id: string | null;
   file: File | null;
@@ -24,12 +26,16 @@ interface UploaderState {
   objectUrl?: string;
   fileType: "image" | "video";
 }
+
+// Props for the uploader component
 interface iAppProps {
   value?: string;
   onChange?: (value: string) => void;
 }
+
+// Main uploader component
 export function Uploader({ value, onChange }: iAppProps) {
-  const fileUrl = useConstruct(value || "");
+  const fileUrl = useConstruct(value || ""); // Construct file URL from key
   const [fileState, setFileState] = useState<UploaderState>({
     id: null,
     file: null,
@@ -42,10 +48,12 @@ export function Uploader({ value, onChange }: iAppProps) {
     objectUrl: fileUrl,
   });
 
+  // Upload the selected file to S3
   async function uploadFile(file: File) {
     setFileState((prev) => ({ ...prev, uploading: true, progress: 0 }));
 
     try {
+      // Request a presigned URL from the server
       const presignedResponse = await fetch("/api/s3/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,6 +65,7 @@ export function Uploader({ value, onChange }: iAppProps) {
         }),
       });
 
+      // Handle error if presigned URL request fails
       if (!presignedResponse.ok) {
         toast.error("Failed to get presigned URL.");
         setFileState((prev) => ({
@@ -69,9 +78,9 @@ export function Uploader({ value, onChange }: iAppProps) {
       }
 
       const { presignedUrl, key } = await presignedResponse.json();
-
       const xhr = new XMLHttpRequest();
 
+      // Upload file to S3 using the presigned URL
       await new Promise<void>((resolve, reject) => {
         xhr.upload.onprogress = (event) => {
           if (event.lengthComputable) {
@@ -91,7 +100,6 @@ export function Uploader({ value, onChange }: iAppProps) {
               uploading: false,
               key: key,
             }));
-
             onChange?.(key);
             toast.success("File uploaded successfully!");
             resolve();
@@ -100,10 +108,7 @@ export function Uploader({ value, onChange }: iAppProps) {
           }
         };
 
-        xhr.onerror = () => {
-          reject(new Error("Upload failed."));
-        };
-
+        xhr.onerror = () => reject(new Error("Upload failed."));
         xhr.open("PUT", presignedUrl);
         xhr.setRequestHeader("Content-Type", file.type);
         xhr.send(file);
@@ -120,16 +125,20 @@ export function Uploader({ value, onChange }: iAppProps) {
     }
   }
 
+  // Handle file drop from drag-and-drop
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
 
+        // Clean up any previous object URL
         if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
           URL.revokeObjectURL(fileState.objectUrl);
         }
+
+        // Set new file state
         setFileState({
-          file: file,
+          file,
           uploading: false,
           progress: 0,
           objectUrl: URL.createObjectURL(file),
@@ -145,6 +154,7 @@ export function Uploader({ value, onChange }: iAppProps) {
     [fileState.objectUrl]
   );
 
+  // Handle removing the uploaded file
   async function handleRemoveFile() {
     if (fileState.isDeleting || !fileState.objectUrl) return;
 
@@ -154,6 +164,7 @@ export function Uploader({ value, onChange }: iAppProps) {
         isDeleting: true,
       }));
 
+      // Send delete request to server
       const response = await fetch("/api/s3/delete", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -172,12 +183,13 @@ export function Uploader({ value, onChange }: iAppProps) {
         return;
       }
 
+      // Clean up object URL
       if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
         URL.revokeObjectURL(fileState.objectUrl);
       }
 
+      // Reset state and notify
       onChange?.("");
-
       setFileState(() => ({
         file: null,
         uploading: false,
@@ -188,7 +200,6 @@ export function Uploader({ value, onChange }: iAppProps) {
         id: null,
         isDeleting: false,
       }));
-
       toast.success("File deleted successfully.");
     } catch (error) {
       toast.error("Error removing file. Please try again.");
@@ -200,6 +211,7 @@ export function Uploader({ value, onChange }: iAppProps) {
     }
   }
 
+  // Handle file rejections (too large, too many files, etc.)
   function rejectedFiles(fileRejection: FileRejection[]) {
     if (fileRejection.length) {
       const tooManyFiles = fileRejection.find(
@@ -208,15 +220,12 @@ export function Uploader({ value, onChange }: iAppProps) {
       const fileSizeTooBig = fileRejection.find(
         (rejection) => rejection.errors[0].code === "file-too-large"
       );
-      if (tooManyFiles) {
-        toast.error("Too many files selected, max is 1.");
-      }
-      if (fileSizeTooBig) {
-        toast.error("File size exceeds the limit.");
-      }
+      if (tooManyFiles) toast.error("Too many files selected, max is 1.");
+      if (fileSizeTooBig) toast.error("File size exceeds the limit.");
     }
   }
 
+  // Render different upload states
   function renderContent() {
     if (fileState.uploading) {
       return (
@@ -241,6 +250,7 @@ export function Uploader({ value, onChange }: iAppProps) {
     return <RenderEmptyState isDragActive={isDragActive} />;
   }
 
+  // Cleanup object URLs on unmount
   useEffect(() => {
     let oldUrl = fileState.objectUrl;
 
@@ -251,15 +261,18 @@ export function Uploader({ value, onChange }: iAppProps) {
     };
   }, [fileState.objectUrl]);
 
+  // Dropzone setup
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { "image/*": [] },
     maxFiles: 1,
     multiple: false,
-    maxSize: 5 * 1024 * 1024,
+    maxSize: 5 * 1024 * 1024, // 5 MB limit
     onDropRejected: rejectedFiles,
     disabled: fileState.uploading || !!fileState.objectUrl,
   });
+
+  // Component UI
   return (
     <Card
       {...getRootProps()}
