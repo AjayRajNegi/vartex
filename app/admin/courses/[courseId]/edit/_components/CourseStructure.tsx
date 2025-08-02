@@ -26,16 +26,16 @@ import {
 } from "@dnd-kit/sortable";
 
 import Link from "next/link";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { CSS } from "@dnd-kit/utilities";
-import { ReactNode, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ReactNode, useEffect, useState } from "react";
+import { reorderChapters, reorderLessons } from "../actions";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { toast } from "sonner";
-import { reorderChapters, reorderLessons } from "../actions";
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -85,6 +85,7 @@ export function CourseStructure({ data }: iAppProps) {
       return updatedItems;
     });
   }, [data]);
+
   function SortableItem({ children, id, data, className }: SortableItemProps) {
     const {
       attributes,
