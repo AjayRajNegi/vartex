@@ -34,6 +34,7 @@ import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { reorderLessons } from "../actions";
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -140,7 +141,7 @@ export function CourseStructure({ data }: iAppProps) {
 
     if (activeType === "lesson" && overType === "lesson") {
       const chapterId = active.data.current?.chapterId;
-      const overChapterId = over.datat.current?.chapterId;
+      const overChapterId = over.data.current?.chapterId;
 
       if (!chapterId || chapterId !== overChapterId) {
         toast.error("Lesson move between different chapters is not allowed.");
@@ -190,6 +191,27 @@ export function CourseStructure({ data }: iAppProps) {
 
       const previousItems = [...items];
       setItems(newItems);
+
+      if (courseId) {
+        const lessonToUpdate = updatedLessonForState.map((lesson) => ({
+          id: lesson.id,
+          position: lesson.order,
+        }));
+        const reorderLessonsPromise = () =>
+          reorderLessons(chapterId, lessonToUpdate, courseId);
+        toast.promise(reorderLessonsPromise(), {
+          loading: "Reordering Lessons...",
+          success: (result) => {
+            if (result.status === "success") return result.message;
+            throw new Error(result.message);
+          },
+          error: () => {
+            setItems(previousItems);
+            return "Failed to reorder lessons";
+          },
+        });
+      }
+      return;
     }
   }
 

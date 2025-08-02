@@ -5,6 +5,7 @@ import { ApiResponse } from "@/lib/types";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
 import { courseSchema, CourseSchemaType } from "@/lib/zodSchema";
+import { revalidatePath } from "next/cache";
 
 const aj = arcjet
   .withRule(detectBot({ mode: "LIVE", allow: [] }))
@@ -52,5 +53,46 @@ export async function editCourse(
     };
   } catch (error) {
     return { status: "error", message: "Failed to update course." };
+  }
+}
+
+export async function reorderLessons(
+  chapterId: string,
+  lessons: { id: string; position: number }[],
+  courseId: string
+): Promise<ApiResponse> {
+  try {
+    if (!lessons || lessons.length === 0) {
+      return {
+        status: "error",
+        message: "No lessons provided for reordering.",
+      };
+    }
+
+    const updates = lessons.map((lesson) =>
+      prisma.lesson.update({
+        where: {
+          id: lesson.id,
+          chapterId: chapterId,
+        },
+        data: {
+          position: lesson.position,
+        },
+      })
+    );
+
+    await prisma.$transaction(updates);
+
+    revalidatePath(`/admin/courses/${courseId}/edit`);
+
+    return {
+      status: "success",
+      message: "Lessons reorderd successfully.",
+    };
+  } catch (error) {
+    return {
+      status: "error",
+      message: "Failed to reorder lessons.",
+    };
   }
 }
