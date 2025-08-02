@@ -15,6 +15,7 @@ import {
   KeyboardSensor,
   rectIntersection,
   DraggableSyntheticListeners,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -27,14 +28,14 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { CSS } from "@dnd-kit/utilities";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { reorderLessons } from "../actions";
+import { reorderChapters, reorderLessons } from "../actions";
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -65,6 +66,25 @@ export function CourseStructure({ data }: iAppProps) {
     })) || [];
 
   const [items, setItems] = useState(initialItems);
+
+  useEffect(() => {
+    setItems((prevItems) => {
+      const updatedItems =
+        data.chapter.map((chapter) => ({
+          id: chapter.id,
+          title: chapter.title,
+          order: chapter.position,
+          isOpen:
+            prevItems.find((item) => item.id === chapter.id)?.isOpen ?? true,
+          lessons: chapter.lessons.map((lesson) => ({
+            id: lesson.id,
+            title: lesson.title,
+            order: lesson.position,
+          })),
+        })) || [];
+      return updatedItems;
+    });
+  }, [data]);
   function SortableItem({ children, id, data, className }: SortableItemProps) {
     const {
       attributes,
@@ -92,7 +112,7 @@ export function CourseStructure({ data }: iAppProps) {
     );
   }
 
-  function handleDragEnd(event) {
+  function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
     if (!over || active.id === over.id) {
@@ -137,6 +157,29 @@ export function CourseStructure({ data }: iAppProps) {
 
       const previousItems = [...items];
       setItems(updatedChapterForState);
+
+      if (courseId) {
+        const chaptersToUpdate = updatedChapterForState.map((chapter) => ({
+          id: chapter.id,
+          position: chapter.order,
+        }));
+
+        const reorderPromise = () =>
+          reorderChapters(courseId, chaptersToUpdate);
+
+        toast.promise(reorderPromise(), {
+          loading: "Reordering Chapters...",
+          success: (result) => {
+            if (result.status === "success") return result.message;
+            throw new Error(result.message);
+          },
+          error: () => {
+            setItems(previousItems);
+            return "Failed to reorder chapters.";
+          },
+        });
+      }
+      return;
     }
 
     if (activeType === "lesson" && overType === "lesson") {
