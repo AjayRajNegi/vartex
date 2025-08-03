@@ -36,6 +36,7 @@ import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { NewChapterModal } from "./NewChapterModal";
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -284,6 +285,7 @@ export function CourseStructure({ data }: iAppProps) {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between border-b border-border ">
           <CardTitle>Chapters</CardTitle>
+          <NewChapterModal courseId={data.id} />
         </CardHeader>
         <CardContent className="space-y-8">
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
