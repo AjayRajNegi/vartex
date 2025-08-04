@@ -12,6 +12,7 @@ import {
   DialogContent,
   DialogTrigger,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 
 import { Plus } from "lucide-react";
@@ -21,6 +22,9 @@ import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { chapterSchema, ChapterSchemaType } from "@/lib/zodSchema";
+import { tryCatch } from "@/hooks/try-catch";
+import { createChapter } from "../actions";
+import { toast } from "sonner";
 
 export function NewChapterModal({ courseId }: { courseId: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +39,21 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
   });
 
   async function onSubmit(values: ChapterSchemaType) {
-    startTransition(async () => {});
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(createChapter(values));
+
+      if (error) {
+        toast.error("An unexpected error occured.");
+        return;
+      }
+      if (result.status === "success") {
+        toast.success(result.message);
+        form.reset();
+        setIsOpen(false);
+      } else if (result.status === "error") {
+        toast.error(result.message);
+      }
+    });
   }
 
   function handleOpenChange(open: boolean) {
@@ -57,7 +75,7 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form className="space-y-8">
+          <form className="space-y-8 " onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="name"
@@ -70,6 +88,11 @@ export function NewChapterModal({ courseId }: { courseId: string }) {
                 </FormItem>
               )}
             />
+            <DialogFooter>
+              <Button type="submit" disabled={isPending}>
+                {isPending ? "Saving..." : "Save Changes"}
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>
