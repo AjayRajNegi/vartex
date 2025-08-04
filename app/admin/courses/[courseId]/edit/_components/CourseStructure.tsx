@@ -38,6 +38,8 @@ import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DeleteLesson } from "./DeleteLesson";
+import { DeleteChapter } from "./DeleteChapter";
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -324,9 +326,7 @@ export function CourseStructure({ data }: iAppProps) {
                             {item.title}
                           </p>
                         </div>
-                        <Button size="icon" variant="outline">
-                          <Trash2 size={4} />
-                        </Button>
+                        <DeleteChapter />
                       </div>
                       <CollapsibleContent>
                         <div className="p-1">
@@ -357,9 +357,11 @@ export function CourseStructure({ data }: iAppProps) {
                                         {lesson.title}
                                       </Link>
                                     </div>
-                                    <Button variant="outline" size="icon">
-                                      <Trash2 size={4} />
-                                    </Button>
+                                    <DeleteLesson
+                                      courseId={data.id}
+                                      chapterId={item.id}
+                                      lessonId={lesson.id}
+                                    />
                                   </div>
                                 )}
                               </SortableItem>
