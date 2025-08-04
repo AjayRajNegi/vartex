@@ -45,7 +45,7 @@ export function Uploader({ value, onChange }: iAppProps) {
     error: false,
     fileType: "image",
     key: value,
-    objectUrl: fileUrl,
+    objectUrl: value ? fileUrl : undefined,
   });
 
   // Upload the selected file to S3
