@@ -1,18 +1,20 @@
 "use server";
+
+import {
+  courseSchema,
+  lessonSchema,
+  chapterSchema,
+  CourseSchemaType,
+  LessonSchemaType,
+  ChapterSchemaType,
+} from "@/lib/zodSchema";
+
 import { prisma } from "@/lib/db";
 import { request } from "@arcjet/next";
 import { ApiResponse } from "@/lib/types";
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
-import {
-  chapterSchema,
-  ChapterSchemaType,
-  courseSchema,
-  CourseSchemaType,
-  lessonSchema,
-  LessonSchemaType,
-} from "@/lib/zodSchema";
-import { revalidatePath } from "next/cache";
 
 const aj = arcjet
   .withRule(detectBot({ mode: "LIVE", allow: [] }))

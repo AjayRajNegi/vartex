@@ -30,14 +30,14 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { CSS } from "@dnd-kit/utilities";
 import { Button } from "@/components/ui/button";
+import { NewLessonModal } from "./NewLessonModal";
+import { NewChapterModal } from "./NewChapterModal";
 import { ReactNode, useEffect, useState } from "react";
 import { reorderChapters, reorderLessons } from "../actions";
 import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { NewChapterModal } from "./NewChapterModal";
-import { NewLessonModal } from "./NewLessonModal";
 
 interface iAppProps {
   data: AdminCourseSingularType;

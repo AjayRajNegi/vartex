@@ -9,22 +9,22 @@ import {
   Dialog,
   DialogTitle,
   DialogHeader,
-  DialogContent,
-  DialogTrigger,
-  DialogDescription,
   DialogFooter,
+  DialogTrigger,
+  DialogContent,
+  DialogDescription,
 } from "@/components/ui/dialog";
 
+import { toast } from "sonner";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { createLesson } from "../actions";
+import { tryCatch } from "@/hooks/try-catch";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { lessonSchema, LessonSchemaType } from "@/lib/zodSchema";
-import { tryCatch } from "@/hooks/try-catch";
-import { createLesson } from "../actions";
-import { toast } from "sonner";
 
 export function NewLessonModal({
   courseId,
