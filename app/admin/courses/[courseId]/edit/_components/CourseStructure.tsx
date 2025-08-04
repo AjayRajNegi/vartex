@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Trash2,
   FileText,
   ChevronDown,
   ChevronRight,
@@ -29,6 +28,8 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { CSS } from "@dnd-kit/utilities";
+import { DeleteLesson } from "./DeleteLesson";
+import { DeleteChapter } from "./DeleteChapter";
 import { Button } from "@/components/ui/button";
 import { NewLessonModal } from "./NewLessonModal";
 import { NewChapterModal } from "./NewChapterModal";
@@ -38,8 +39,6 @@ import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DeleteLesson } from "./DeleteLesson";
-import { DeleteChapter } from "./DeleteChapter";
 
 interface iAppProps {
   data: AdminCourseSingularType;
@@ -326,7 +325,7 @@ export function CourseStructure({ data }: iAppProps) {
                             {item.title}
                           </p>
                         </div>
-                        <DeleteChapter />
+                        <DeleteChapter courseId={data.id} chapterId={item.id} />
                       </div>
                       <CollapsibleContent>
                         <div className="p-1">

@@ -64,7 +64,10 @@ export function NewLessonModal({
   }
 
   function handleOpenChange(open: boolean) {
-    setIsOpen(true);
+    if (!open) {
+      form.reset();
+    }
+    setIsOpen(open);
   }
 
   return (
