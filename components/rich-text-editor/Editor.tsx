@@ -6,6 +6,14 @@ import { EditorContent, useEditor } from "@tiptap/react";
 
 // RichTextEditor component that integrates Tiptap for rich text editing
 export function RichTextEditor({ field }: { field: any }) {
+  let content;
+
+  try {
+    content = field.value ? JSON.parse(field.value) : "<p>Hello World</p>";
+  } catch (error) {
+    console.warn("Failed to parse editor content:", error);
+    content = "<p>Hello World</p>"; // fallback
+  }
   // Initialize the Tiptap editor
   const editor = useEditor({
     extensions: [
@@ -25,7 +33,8 @@ export function RichTextEditor({ field }: { field: any }) {
       field.onChange(JSON.stringify(editor.getJSON()));
     },
     // Initialize content from field value if available, else show default text
-    content: field.value ? JSON.parse(field.value) : "<p>Hello World</p>",
+    content: content,
+    // field.value ? JSON.parse(field.value) : "<p>Hello World</p>",
     immediatelyRender: false, // Editor renders when it's ready, not instantly
   });
 
