@@ -1,29 +1,35 @@
 "use client";
-import { AdminLessonType } from "@/app/data/admin/admin-get-lesson";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { lessonSchema, LessonSchemaType } from "@/lib/zodSchema";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import {
   Form,
-  FormControl,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
+  FormControl,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from "@/components/ui/card";
+
+import Link from "next/link";
+import { toast } from "sonner";
+import { useTransition } from "react";
+import { ArrowLeft } from "lucide-react";
+import { updateLesson } from "../actions";
+import { useForm } from "react-hook-form";
+import { tryCatch } from "@/hooks/try-catch";
 import { Input } from "@/components/ui/input";
-import { RichTextEditor } from "@/components/rich-text-editor/Editor";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Uploader } from "@/components/file-uploader/Uploader";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { lessonSchema, LessonSchemaType } from "@/lib/zodSchema";
+import { AdminLessonType } from "@/app/data/admin/admin-get-lesson";
+import { RichTextEditor } from "@/components/rich-text-editor/Editor";
 
 interface iAppProps {
   data: AdminLessonType;
@@ -32,6 +38,7 @@ interface iAppProps {
 }
 
 export function LessonForm({ data, courseId, chapterId }: iAppProps) {
+  const [pending, startTransition] = useTransition();
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
     defaultValues: {
@@ -43,6 +50,27 @@ export function LessonForm({ data, courseId, chapterId }: iAppProps) {
       videoKey: data.videoKey ?? undefined,
     },
   });
+
+  function onSubmit(values: LessonSchemaType) {
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(
+        updateLesson(values, data.id)
+      );
+
+      if (error) {
+        toast.error("An unexpected error occured.");
+        return;
+      }
+
+      if (result.status === "success") {
+        toast.success(result.message);
+        form.reset();
+      } else if (result.status === "error") {
+        toast.error(result.message);
+      }
+    });
+    console.log(values);
+  }
   return (
     <div>
       <Link
@@ -62,7 +90,7 @@ export function LessonForm({ data, courseId, chapterId }: iAppProps) {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
                 name="name"
@@ -123,7 +151,9 @@ export function LessonForm({ data, courseId, chapterId }: iAppProps) {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={pending}>
+                {pending ? "Saving..." : "Submit"}
+              </Button>
             </form>
           </Form>
         </CardContent>
