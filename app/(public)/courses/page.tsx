@@ -1,9 +1,10 @@
-import { getAllCourses } from "@/app/data/course/get-all-courses";
 import {
   PublicCourseCard,
   PublicCourseCardSkeleton,
 } from "../_components/PublicCourseCard";
+
 import { Suspense } from "react";
+import { getAllCourses } from "@/app/data/course/get-all-courses";
 
 export default function PublicCoursesRoute() {
   return (

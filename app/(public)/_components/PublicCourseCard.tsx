@@ -1,12 +1,12 @@
-import { PublicCourseType } from "@/app/data/course/get-all-courses";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useConstruct } from "@/hooks/use-construct-url";
-import { School, TimerIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { School, TimerIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { buttonVariants } from "@/components/ui/button";
+import { useConstruct } from "@/hooks/use-construct-url";
+import { Card, CardContent } from "@/components/ui/card";
+import { PublicCourseType } from "@/app/data/course/get-all-courses";
 
 interface iAppProps {
   data: PublicCourseType;
