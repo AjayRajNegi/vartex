@@ -23,7 +23,7 @@ export function PublicCourseCard({ data }: iAppProps) {
         alt="Thumbnail image"
         className="w-full rounded-t-xl aspect-video h-full object-cover"
       />
-      <CardContent>
+      <CardContent className="py-4">
         <Link
           href={`/courses/${data.slug}`}
           className="font-medium text-lg line-clamp-2 hover:underline group-hover:text-primary transition-colors"
