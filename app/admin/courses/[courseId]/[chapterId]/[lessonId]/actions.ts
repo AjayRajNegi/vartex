@@ -1,8 +1,8 @@
 "use server";
 
-import { requireAdmin } from "@/app/data/admin/require-admin";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
+import { requireAdmin } from "@/app/data/admin/require-admin";
 import { lessonSchema, LessonSchemaType } from "@/lib/zodSchema";
 
 export async function updateLesson(
