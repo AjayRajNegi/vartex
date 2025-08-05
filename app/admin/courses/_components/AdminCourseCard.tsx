@@ -17,11 +17,11 @@ import {
 
 import Link from "next/link";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useConstruct } from "@/hooks/use-construct-url";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { AdminCourseType } from "@/app/data/admin/admin-get-courses";
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface iAppProps {
   data: AdminCourseType;

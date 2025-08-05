@@ -38,13 +38,13 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { tryCatch } from "@/hooks/try-catch";
 import { Input } from "@/components/ui/input";
+import { useConfetti } from "@/hooks/use-confetti";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Uploader } from "@/components/file-uploader/Uploader";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
 import { ArrowLeft, Loader2, PlusIcon, SparkleIcon } from "lucide-react";
-import { useConfetti } from "@/hooks/use-confetti";
 
 export default function CourseCreationPage() {
   const [pending, startTransition] = useTransition();

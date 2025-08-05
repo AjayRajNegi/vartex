@@ -1,12 +1,13 @@
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
 import {
   AdminCourseCard,
   AdminCourseCardSkeleton,
 } from "./_components/AdminCourseCard";
-import { adminGetCourses } from "@/app/data/admin/admin-get-courses";
-import { EmptyState } from "@/components/general/EmptyState";
+
+import Link from "next/link";
 import { Suspense } from "react";
+import { buttonVariants } from "@/components/ui/button";
+import { EmptyState } from "@/components/general/EmptyState";
+import { adminGetCourses } from "@/app/data/admin/admin-get-courses";
 
 export default function CoursesPage() {
   return (

@@ -1,19 +1,20 @@
 "use client";
-import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import { tryCatch } from "@/hooks/try-catch";
+
 import Link from "next/link";
-import { useTransition } from "react";
 import { toast } from "sonner";
+import { useTransition } from "react";
 import { deleteCourse } from "./actions";
-import { useParams, useRouter } from "next/navigation";
+import { tryCatch } from "@/hooks/try-catch";
 import { Loader2, Trash2 } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function DeleteCourse() {
   const [pending, startTransition] = useTransition();
