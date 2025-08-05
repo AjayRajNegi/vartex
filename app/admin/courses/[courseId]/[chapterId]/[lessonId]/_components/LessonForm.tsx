@@ -1,6 +1,6 @@
 "use client";
 import { AdminLessonType } from "@/app/data/admin/admin-get-lesson";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { lessonSchema, LessonSchemaType } from "@/lib/zodSchema";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -96,7 +96,11 @@ export function LessonForm({ data, courseId, chapterId }: iAppProps) {
                   <FormItem>
                     <FormLabel>Thumbnail image</FormLabel>
                     <FormControl>
-                      <Uploader onChange={field.onChange} value={field.value} />
+                      <Uploader
+                        onChange={field.onChange}
+                        value={field.value}
+                        fileTypeAccepted="image"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,12 +113,17 @@ export function LessonForm({ data, courseId, chapterId }: iAppProps) {
                   <FormItem>
                     <FormLabel>Video File </FormLabel>
                     <FormControl>
-                      <Uploader onChange={field.onChange} value={field.value} />
+                      <Uploader
+                        onChange={field.onChange}
+                        value={field.value}
+                        fileTypeAccepted="video"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+              <Button type="submit">Submit</Button>
             </form>
           </Form>
         </CardContent>
