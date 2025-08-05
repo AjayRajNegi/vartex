@@ -3,7 +3,7 @@ import { requireAdmin } from "./require-admin";
 
 // Asynchronous function to fetch a list of courses for admin users
 export async function adminGetCourses() {
-  await new Promise((resolve) => setTimeout(resolve, 10000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   await requireAdmin();
 
   const data = await prisma.course.findMany({

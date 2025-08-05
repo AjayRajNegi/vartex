@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { AdminCourseCard } from "./_components/AdminCourseCard";
+import {
+  AdminCourseCard,
+  AdminCourseCardSkeleton,
+} from "./_components/AdminCourseCard";
 import { adminGetCourses } from "@/app/data/admin/admin-get-courses";
 import { EmptyState } from "@/components/general/EmptyState";
+import { Suspense } from "react";
 
 export default function CoursesPage() {
   return (
@@ -13,7 +17,9 @@ export default function CoursesPage() {
           Create Courses
         </Link>
       </div>
-      <RenderCourses />
+      <Suspense fallback={<AdminCourseCardSkeletonLayout />}>
+        <RenderCourses />
+      </Suspense>
     </>
   );
 }
@@ -38,5 +44,15 @@ async function RenderCourses() {
         </div>
       )}
     </>
+  );
+}
+
+function AdminCourseCardSkeletonLayout() {
+  return (
+    <div className="grid grid-cols-I sm:grid-cols-2 md:grid—cols—l lg:grid-cols-2 gap-7">
+      {Array.from({ length: 4 }).map((_, index) => (
+        <AdminCourseCardSkeleton key={index} />
+      ))}
+    </div>
   );
 }
