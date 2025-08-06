@@ -1,6 +1,6 @@
-"use client";
 import TextAlign from "@tiptap/extension-text-align";
-import { generateHTML, type JSONContent } from "@tiptap/react";
+import { type JSONContent } from "@tiptap/react";
+import { generateHTML } from "@tiptap/html/server";
 import StarterKit from "@tiptap/starter-kit";
 import parse from "html-react-parser";
 
