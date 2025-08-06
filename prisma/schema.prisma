@@ -9,16 +9,20 @@ datasource db {
 }
 
 model User {
-  id            String    @id
+  id            String   @id
   name          String
   email         String
   emailVerified Boolean
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
-  courses       Course[]
+
+  enrollment Enrollment[]
+  sessions   Session[]
+  accounts   Account[]
+  courses    Course[]
+
+  stripeCustomerId String? @unique
 
   role       String?
   banned     Boolean?
@@ -92,11 +96,12 @@ model Course {
 
   status CourseStatus @default(Draft)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  chapter   Chapter[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  chapter    Chapter[]
+  enrollment Enrollment[]
 }
 
 enum CourseLevel {
@@ -135,4 +140,24 @@ model Lesson {
   updatedAt DateTime @updatedAt
   Chapter   Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   chapterId String?
+}
+
+model Enrollment {
+  int String @id @default(uuid())
+
+  amount    Int
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  status    EnrollmentStatus @default(Pending)
+
+  Course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String
+  User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+}
+
+enum EnrollmentStatus {
+  Pending
+  Active
+  Cancelled
 }
