@@ -2,14 +2,12 @@ import { z } from "zod";
 import { S3 } from "@/lib/s3Client";
 import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 
-const aj = arcjet
-  .withRule(detectBot({ mode: "LIVE", allow: [] }))
-  .withRule(fixedWindow({ mode: "LIVE", window: "1m", max: 5 }));
+const aj = arcjet.withRule(fixedWindow({ mode: "LIVE", window: "1m", max: 5 }));
 
 export const fileUploadSchema = z.object({
   fileName: z.string().min(1, { message: "Filename is required," }),
