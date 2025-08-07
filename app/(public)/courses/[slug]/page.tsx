@@ -15,12 +15,13 @@ import {
 import Image from "next/image";
 import { CheckIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import { getIndividualCourse } from "@/app/data/course/get-course";
 import { RenderDescription } from "@/components/rich-text-editor/RenderDesctiption";
-import { enrollInCourseAction } from "./actions";
+import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
+import Link from "next/link";
+import { EnrollmentButton } from "./_components/EnrollmentButton";
 
 type Params = Promise<{ slug: string }>;
 
@@ -31,6 +32,8 @@ export default async function IndividualCoursePage({
 }) {
   const { slug } = await params;
   const course = await getIndividualCourse(slug);
+  const isEnrolled = await checkIfCourseBought(course.id);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-5">
       <div className="order-1 lg:col-span-2">
@@ -257,14 +260,11 @@ export default async function IndividualCoursePage({
                 </ul>
               </div>
 
-              <form
-                action={async () => {
-                  "user server";
-                  enrollInCourseAction(course.id);
-                }}
-              >
-                <Button className="w-full">Enroll Now!</Button>
-              </form>
+              {isEnrolled ? (
+                <Link href={"/dashboard"}>Watch Course</Link>
+              ) : (
+                <EnrollmentButton courseId={course.id} />
+              )}
               <p className="mt-3 text-center text-xs text-muted-foreground ">
                 30-day money-back guarantee
               </p>

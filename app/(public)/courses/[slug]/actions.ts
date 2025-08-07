@@ -6,6 +6,16 @@ import { stripe } from "@/lib/stripe";
 import { ApiResponse } from "@/lib/types";
 import { redirect } from "next/navigation";
 import { requireUser } from "@/app/data/user/require-user";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
+import { request } from "@arcjet/next";
+
+const aj = arcjet.withRule(
+  fixedWindow({
+    mode: "LIVE",
+    window: "1m",
+    max: 5,
+  })
+);
 
 export async function enrollInCourseAction(
   courseId: string
@@ -13,6 +23,18 @@ export async function enrollInCourseAction(
   const user = await requireUser();
   let checkoutUrl: string;
   try {
+    const req = await request();
+    const decision = await aj.protect(req, {
+      fingerprint: user.id,
+    });
+
+    if (decision.isDenied()) {
+      return {
+        status: "error",
+        message: "You have been blocked.",
+      };
+    }
+
     const course = await prisma.course.findUnique({
       where: { id: courseId },
       select: {
