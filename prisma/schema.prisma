@@ -143,7 +143,7 @@ model Lesson {
 }
 
 model Enrollment {
-  int String @id @default(uuid())
+  id String @id @default(uuid())
 
   amount    Int
   createdAt DateTime         @default(now())
@@ -154,6 +154,8 @@ model Enrollment {
   courseId String
   User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String
+
+  @@unique([courseId, userId], name: "userId_courseId")
 }
 
 enum EnrollmentStatus {
