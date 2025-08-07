@@ -30,6 +30,7 @@ const aj = arcjet({
         "CATEGORY:SEARCH_ENGINE",
         "CATEGORY:SEARCH_ENGINE",
         "CATEGORY:PREVIEW",
+        "STRIPE_WEBHOOK",
       ],
     }),
   ],

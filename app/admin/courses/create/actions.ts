@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/db";
+import { stripe } from "@/lib/stripe";
 import { request } from "@arcjet/next";
 import { ApiResponse } from "@/lib/types";
 import arcjet, { fixedWindow } from "@/lib/arcjet";
@@ -33,10 +34,20 @@ export async function CreateCourse(
       };
     }
 
-    const data = await prisma.course.create({
+    const data = await stripe.products.create({
+      name: validation.data.title,
+      description: validation.data.description,
+      default_price_data: {
+        currency: "inr",
+        unit_amount: validation.data.price * 100,
+      },
+    });
+
+    await prisma.course.create({
       data: {
         ...validation.data,
         userId: session?.user.id as string,
+        stripePriceId: data.default_price as string,
       },
     });
     return {

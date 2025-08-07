@@ -12,16 +12,17 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
+import Link from "next/link";
 import Image from "next/image";
 import { CheckIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getIndividualCourse } from "@/app/data/course/get-course";
-import { RenderDescription } from "@/components/rich-text-editor/RenderDesctiption";
-import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
-import Link from "next/link";
 import { EnrollmentButton } from "./_components/EnrollmentButton";
+import { getIndividualCourse } from "@/app/data/course/get-course";
+import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
+import { RenderDescription } from "@/components/rich-text-editor/RenderDesctiption";
 
 type Params = Promise<{ slug: string }>;
 
@@ -261,7 +262,12 @@ export default async function IndividualCoursePage({
               </div>
 
               {isEnrolled ? (
-                <Link href={"/dashboard"}>Watch Course</Link>
+                <Link
+                  className={buttonVariants({ className: "w-full" })}
+                  href={"/dashboard"}
+                >
+                  Watch Course
+                </Link>
               ) : (
                 <EnrollmentButton courseId={course.id} />
               )}
