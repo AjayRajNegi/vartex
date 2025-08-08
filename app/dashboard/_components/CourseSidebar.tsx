@@ -1,3 +1,4 @@
+"use client";
 import {
   Collapsible,
   CollapsibleContent,
@@ -5,6 +6,7 @@ import {
 } from "@/components/ui/collapsible";
 
 import { LessonItem } from "./LessonItem";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Play } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
@@ -14,6 +16,8 @@ interface iAppProps {
   course: CourseSidebarDataType["course"];
 }
 export function CourseSidebar({ course }: iAppProps) {
+  const pathname = usePathname();
+  const currentLessonId = pathname.split("/").pop();
   return (
     <div className="flex flex-col h-full">
       <div className="pb-4 pe-4 border-b border-border">
@@ -70,6 +74,7 @@ export function CourseSidebar({ course }: iAppProps) {
                   key={lesson.id}
                   lesson={lesson}
                   slug={course.slug}
+                  isActive={currentLessonId === lesson.id}
                 />
               ))}
             </CollapsibleContent>
