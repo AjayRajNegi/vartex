@@ -1,8 +1,8 @@
+import Link from "next/link";
 import { EmptyState } from "@/components/general/EmptyState";
 import { getAllCourses } from "../data/course/get-all-courses";
 import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
 import { PublicCourseCard } from "../(public)/_components/PublicCourseCard";
-import Link from "next/link";
 
 export default async function DashboardPage() {
   const [courses, enrolledCourses] = await Promise.all([

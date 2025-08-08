@@ -1,7 +1,7 @@
-import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Check, Play } from "lucide-react";
-import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 interface iAppProps {
   lesson: {

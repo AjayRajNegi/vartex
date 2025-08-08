@@ -1,13 +1,14 @@
-import { CourseSidebarDataType } from "@/app/data/course/get-course-sidebar-data";
-import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Progress } from "@/components/ui/progress";
-import { ChevronDown, Play } from "lucide-react";
+
 import { LessonItem } from "./LessonItem";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, Play } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { CourseSidebarDataType } from "@/app/data/course/get-course-sidebar-data";
 
 interface iAppProps {
   course: CourseSidebarDataType["course"];
