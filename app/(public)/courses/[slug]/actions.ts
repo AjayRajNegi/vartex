@@ -3,11 +3,11 @@
 import Stripe from "stripe";
 import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
+import { request } from "@arcjet/next";
 import { ApiResponse } from "@/lib/types";
 import { redirect } from "next/navigation";
-import { requireUser } from "@/app/data/user/require-user";
 import arcjet, { fixedWindow } from "@/lib/arcjet";
-import { request } from "@arcjet/next";
+import { requireUser } from "@/app/data/user/require-user";
 
 const aj = arcjet.withRule(
   fixedWindow({

@@ -1,12 +1,11 @@
 import "server-only";
 
+import { cache } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-// Asynchronous function to enforce admin-only access
-export async function requireAdmin() {
-  // Attempt to get the user's session from the authentication API, using the request headers
+export const requireAdmin = cache(async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -19,4 +18,4 @@ export async function requireAdmin() {
   }
 
   return session;
-}
+});
