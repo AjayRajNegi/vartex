@@ -16,10 +16,18 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function VerifyRequest() {
+export default function VerfiyRequestRoute() {
+  return (
+    <Suspense>
+      <VerifyRequest />
+    </Suspense>
+  );
+}
+
+function VerifyRequest() {
   const params = useSearchParams();
   const email = params.get("email") as string;
   const router = useRouter();

@@ -5,6 +5,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import { EditorContent, useEditor } from "@tiptap/react";
 
 // RichTextEditor component that integrates Tiptap for rich text editing
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function RichTextEditor({ field }: { field: any }) {
   let content;
 

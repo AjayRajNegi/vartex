@@ -2,18 +2,26 @@ import StarterKit from "@tiptap/starter-kit";
 import { type JSONContent } from "@tiptap/react";
 import TextAlign from "@tiptap/extension-text-align";
 
-// Dynamically load correct version of generateHTML
 let generateHTMLFn: typeof import("@tiptap/html").generateHTML;
 
+// Pick correct implementation at runtime
 if (typeof window === "undefined") {
-  // Node / SSR
-  generateHTMLFn = require("@tiptap/html/server").generateHTML;
+  // SSR
+  import("@tiptap/html/server").then((mod) => {
+    generateHTMLFn = mod.generateHTML;
+  });
 } else {
-  // Browser
-  generateHTMLFn = require("@tiptap/html").generateHTML;
+  // CSR
+  import("@tiptap/html").then((mod) => {
+    generateHTMLFn = mod.generateHTML;
+  });
 }
 
 export function renderTipTapHTML(json: JSONContent) {
+  if (!generateHTMLFn) {
+    throw new Error("generateHTML function not loaded yet");
+  }
+
   return generateHTMLFn(json, [
     StarterKit,
     TextAlign.configure({
