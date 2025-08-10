@@ -1,14 +1,14 @@
 "use client";
+import { toast } from "sonner";
+import { useTransition } from "react";
+import { tryCatch } from "@/hooks/try-catch";
 import { Button } from "@/components/ui/button";
+import { MarkLessonComplete } from "../actions";
+import { useConfetti } from "@/hooks/use-confetti";
 import { BookIcon, CheckCircle } from "lucide-react";
 import { useConstruct } from "@/hooks/use-construct-url";
 import { LessonContentType } from "@/app/data/course/get-lesson-content";
 import { RenderDescription } from "@/components/rich-text-editor/RenderDesctiption";
-import { useTransition } from "react";
-import { tryCatch } from "@/hooks/try-catch";
-import { MarkLessonComplete } from "../actions";
-import { toast } from "sonner";
-import { useConfetti } from "@/hooks/use-confetti";
 
 interface iAppProps {
   data: LessonContentType;
