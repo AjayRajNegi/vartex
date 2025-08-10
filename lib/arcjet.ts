@@ -1,19 +1,19 @@
 import "server-only";
 import arcjet, {
+  shield,
   detectBot,
   fixedWindow,
   protectSignup,
   sensitiveInfo,
-  shield,
   slidingWindow,
 } from "@arcjet/next";
 
 export {
+  shield,
   detectBot,
   fixedWindow,
   protectSignup,
   sensitiveInfo,
-  shield,
   slidingWindow,
 };
 

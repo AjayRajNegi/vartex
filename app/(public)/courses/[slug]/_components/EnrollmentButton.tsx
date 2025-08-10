@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useTransition } from "react";
-import { enrollInCourseAction } from "../actions";
-import { tryCatch } from "@/hooks/try-catch";
 import { toast } from "sonner";
+import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
+import { tryCatch } from "@/hooks/try-catch";
+import { Button } from "@/components/ui/button";
+import { enrollInCourseAction } from "../actions";
 
 export function EnrollmentButton({ courseId }: { courseId: string }) {
   const [pending, startTransition] = useTransition();

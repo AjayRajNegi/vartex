@@ -55,6 +55,7 @@ export function CourseContent({ data }: iAppProps) {
         <video
           controls
           poster={thumbnailUrl}
+          controlsList="nodownload"
           className="w-full h-full object-cover"
         >
           <source src={videoUrl} type="video/mp4" />

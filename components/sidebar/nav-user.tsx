@@ -28,6 +28,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function NavUser() {
   const { data: session, isPending } = authClient.useSession();
+  const isAdmin = session?.user.role === "admin";
   const handleSignOut = useSignout();
   const { isMobile } = useSidebar();
 
@@ -115,16 +116,30 @@ export function NavUser() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/admin">
-                  <IconDashboard />
-                  Dashboard
-                </Link>
+                {isAdmin ? (
+                  <Link href="/admin/courses">
+                    <Tv2 />
+                    Courses
+                  </Link>
+                ) : (
+                  <Link href="/courses">
+                    <Tv2 />
+                    Courses
+                  </Link>
+                )}
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/admin/courses">
-                  <Tv2 />
-                  Courses
-                </Link>
+              <DropdownMenuItem asChild>
+                {isAdmin ? (
+                  <Link href="/admin">
+                    <IconDashboard />
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link href="/dashboard">
+                    <IconDashboard />
+                    Dashboard
+                  </Link>
+                )}
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

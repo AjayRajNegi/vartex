@@ -1,19 +1,16 @@
-"use client";
-
 import { useMemo } from "react";
 import parse from "html-react-parser";
-import { generateHTML } from "@tiptap/html";
 import StarterKit from "@tiptap/starter-kit";
 import { type JSONContent } from "@tiptap/react";
+import { generateHTML } from "@tiptap/html/server";
 import TextAlign from "@tiptap/extension-text-align";
 
-export function RenderDescription({ json }: { json: JSONContent }) {
+export function RenderDescriptionServer({ json }: { json: JSONContent }) {
   const output = useMemo(() => {
-    if (typeof window === "undefined") return "";
     return generateHTML(json, [
-      StarterKit,
+      StarterKit, // Provides basic editing features like bold, italic, headings, etc.
       TextAlign.configure({
-        types: ["heading", "paragraph"],
+        types: ["heading", "paragraph"], // Enables text alignment for these types
       }),
     ]);
   }, [json]);

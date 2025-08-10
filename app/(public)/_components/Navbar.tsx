@@ -7,13 +7,17 @@ import { authClient } from "@/lib/auth-client";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/themeToggle";
 
-const navigationItems = [
-  { name: "Home", href: "/" },
-  { name: "Courses", href: "/courses" },
-  { name: "Dashboard", href: "/admin/courses" },
-];
 export default function Navbar() {
   const { data: session, isPending } = authClient.useSession();
+  const isAdmin = session?.user.role === "admin";
+  const navigationItems = [
+    { name: "Home", href: "/" },
+    { name: "Courses", href: `${isAdmin ? "/admin/courses" : "/courses"}` },
+    {
+      name: "Dashboard",
+      href: `${isAdmin ? "/admin" : "/dashboard"}`,
+    },
+  ];
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-[backdrop-filter]:bg-background/60">
@@ -50,6 +54,7 @@ export default function Navbar() {
                     session?.user.image ??
                     `https://avatar.vercel.sh/${session?.user.email}`
                   }
+                  isAdmin={isAdmin}
                 />
               ) : (
                 <>

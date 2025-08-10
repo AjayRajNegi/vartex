@@ -1,7 +1,7 @@
 import "server-only";
-import { requireUser } from "../user/require-user";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { requireUser } from "../user/require-user";
 
 export async function getCoursesSidebarData({ slug }: { slug: string }) {
   const session = await requireUser();

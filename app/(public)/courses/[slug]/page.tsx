@@ -22,7 +22,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { EnrollmentButton } from "./_components/EnrollmentButton";
 import { getIndividualCourse } from "@/app/data/course/get-course";
 import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
-import { RenderDescription } from "@/components/rich-text-editor/RenderDesctiption";
+import { RenderDescriptionServer } from "@/components/rich-text-editor/RenderDescriptionServer";
 
 type Params = Promise<{ slug: string }>;
 
@@ -78,7 +78,7 @@ export default async function IndividualCoursePage({
               Course Description
             </h2>
 
-            <RenderDescription json={JSON.parse(course.description)} />
+            <RenderDescriptionServer json={JSON.parse(course.description)} />
           </div>
         </div>
         <div className="mt-12 space-y-6">

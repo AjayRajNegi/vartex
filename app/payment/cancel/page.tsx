@@ -1,7 +1,7 @@
-import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, XIcon } from "lucide-react";
-import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function CancelPage() {
   return (
