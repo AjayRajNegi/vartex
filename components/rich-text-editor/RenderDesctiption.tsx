@@ -1,22 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
 import parse from "html-react-parser";
-import { generateHTML } from "@tiptap/html";
-import StarterKit from "@tiptap/starter-kit";
 import { type JSONContent } from "@tiptap/react";
-import TextAlign from "@tiptap/extension-text-align";
+import { renderTipTapHTML } from "./RenderTipTapHTML";
 
 export function RenderDescription({ json }: { json: JSONContent }) {
-  const output = useMemo(() => {
-    if (typeof window === "undefined") return "";
-    return generateHTML(json, [
-      StarterKit,
-      TextAlign.configure({
-        types: ["heading", "paragraph"],
-      }),
-    ]);
-  }, [json]);
+  const output = renderTipTapHTML(json);
 
   return (
     <div className="prose dark:prose-invert prose-li:marker:text-primary">
