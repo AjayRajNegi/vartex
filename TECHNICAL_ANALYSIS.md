@@ -56,7 +56,7 @@ app/
 ├── (public)/        # Public-facing pages
 ├── admin/           # Admin dashboard
 ├── dashboard/       # User learning dashboard
-└── api/            # API routes
+└── api/             # API routes
 ```
 
 ### **Key Features by Section**

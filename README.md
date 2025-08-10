@@ -107,7 +107,7 @@ VarTex follows a modern, scalable architecture:
 
 ```
 vartex/
-├── app/                    # Next.js App Router pages
+├── app/                   # Next.js App Router pages
 │   ├── (auth)/            # Authentication pages
 │   ├── (public)/          # Public-facing pages
 │   ├── admin/             # Admin dashboard
@@ -117,7 +117,7 @@ vartex/
 ├── lib/                   # Utility functions and configurations
 ├── hooks/                 # Custom React hooks
 ├── data/                  # Server-side data access functions
-└── prisma/               # Database schema and migrations
+└── prisma/                # Database schema and migrations
 ```
 
 ## 🎯 Core Functionality
