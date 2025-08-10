@@ -253,7 +253,7 @@ export function EditCourseForm({ data }: iAppProps) {
           <FormField
             control={form.control}
             name="price"
-            render={({ field: { onChange, value, ...rest } }) => (
+            render={({ field: { onChange, ...rest } }) => (
               <FormItem className="w-full">
                 <FormLabel>Price</FormLabel>
                 <FormControl>

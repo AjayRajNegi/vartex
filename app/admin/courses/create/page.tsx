@@ -84,7 +84,6 @@ export default function CourseCreationPage() {
         toast.error(result.message);
       }
     });
-    console.log(values);
   }
   return (
     <>
@@ -280,7 +279,7 @@ export default function CourseCreationPage() {
                 <FormField
                   control={form.control}
                   name="price"
-                  render={({ field: { onChange, value, ...rest } }) => (
+                  render={({ field: { onChange, ...rest } }) => (
                     <FormItem className="w-full">
                       <FormLabel>Price</FormLabel>
                       <FormControl>

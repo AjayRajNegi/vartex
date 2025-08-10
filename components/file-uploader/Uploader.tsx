@@ -205,7 +205,7 @@ export function Uploader({ value, onChange, fileTypeAccepted }: iAppProps) {
         isDeleting: false,
       }));
       toast.success("File deleted successfully.");
-    } catch (error) {
+    } catch {
       toast.error("Error removing file. Please try again.");
       setFileState((prev) => ({
         ...prev,
@@ -257,7 +257,7 @@ export function Uploader({ value, onChange, fileTypeAccepted }: iAppProps) {
 
   // Cleanup object URLs on unmount
   useEffect(() => {
-    let oldUrl = fileState.objectUrl;
+    const oldUrl = fileState.objectUrl;
 
     return () => {
       if (oldUrl && !oldUrl.startsWith("http")) {

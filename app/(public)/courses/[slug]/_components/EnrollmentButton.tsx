@@ -28,7 +28,7 @@ export function EnrollmentButton({ courseId }: { courseId: string }) {
     });
   }
   return (
-    <Button disabled={pending} className="w-full">
+    <Button disabled={pending} onClick={onSubmit} className="w-full">
       {pending ? (
         <>
           <Loader2 className="size-4 animate-spin"></Loader2>

@@ -2,10 +2,10 @@
 
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -31,7 +31,7 @@ export default function LoginForm() {
           onSuccess: () => {
             toast.success("Signed in with Github, you will be redirected...");
           },
-          onError: (error) => {
+          onError: () => {
             toast.error("Internal server error.");
           },
         },

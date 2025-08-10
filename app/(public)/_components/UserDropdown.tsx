@@ -23,7 +23,7 @@ interface iAppProps {
   name: string;
   email: string;
   image: string;
-  isAdmin: Boolean;
+  isAdmin: boolean;
 }
 
 export default function UserDropdown({
