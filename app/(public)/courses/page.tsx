@@ -6,6 +6,8 @@ import {
 import { Suspense } from "react";
 import { getAllCourses } from "@/app/data/course/get-all-courses";
 
+export const dynamic = "force-dynamic";
+
 export default function PublicCoursesRoute() {
   return (
     <div className="mt-5">
