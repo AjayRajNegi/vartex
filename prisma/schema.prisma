@@ -18,12 +18,10 @@ model User {
   updatedAt     DateTime
 
   lessonProgress LessonProgress[]
-  enrollment     Enrollment[]
+  payment        Payment[]
   sessions       Session[]
   accounts       Account[]
   courses        Course[]
-
-  stripeCustomerId String? @unique
 
   role       String?
   banned     Boolean?
@@ -95,15 +93,14 @@ model Course {
   smallDescription String
   slug             String @unique
 
-  stripePriceId String?      @unique
-  status        CourseStatus @default(Draft)
+  status CourseStatus @default(Draft)
 
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
-  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String
-  chapter    Chapter[]
-  enrollment Enrollment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  chapter   Chapter[]
+  payment   Payment[]
 }
 
 enum CourseLevel {
@@ -146,28 +143,6 @@ model Lesson {
   chapterId String?
 }
 
-model Enrollment {
-  id String @id @default(uuid())
-
-  amount    Int
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
-  status    EnrollmentStatus @default(Pending)
-
-  Course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId String
-  User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String
-
-  @@unique([courseId, userId], name: "userId_courseId")
-}
-
-enum EnrollmentStatus {
-  Pending
-  Active
-  Cancelled
-}
-
 model LessonProgress {
   id String @id @default(uuid())
 
@@ -181,4 +156,26 @@ model LessonProgress {
   lessonId  String
 
   @@unique([userId, lessonId])
+}
+
+model Payment {
+  id String @id @default(uuid())
+
+  amount            Float
+  currency          String
+  receiptId         String?
+  status            String
+  razorpayOrderId   String   @unique
+  razorpayPaymentId String?
+  method            String?
+  description       String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  User     User   @relation(fields: [userId], references: [id])
+  userId   String
+  Course   Course @relation(fields: [courseId], references: [id])
+  courseId String
+
+  @@index([userId, courseId, status])
 }

@@ -60,8 +60,7 @@ jobs:
         run: pnpm build
         env:
           DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
-          STRIPE_SECRET_KEY: ${{ secrets.STAGING_STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STAGING_STRIPE_WEBHOOK_SECRET }}
+          RAZORPAY_KEY_SECRET: ${{ secrets.RAZORPAY_KEY_SECRET }}
           AWS_ENDPOINT_URL_S3: ${{ secrets.STAGING_AWS_ENDPOINT_URL_S3 }}
           AUTH_GITHUB_CLIENT_ID: ${{ secrets.STAGING_AUTH_GITHUB_CLIENT_ID }}
           AUTH_GITHUB_SECRET: ${{ secrets.STAGING_AUTH_GITHUB_SECRET }}
@@ -78,8 +77,8 @@ jobs:
           vercel-args: "--target staging"
         env:
           DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
-          STRIPE_SECRET_KEY: ${{ secrets.STAGING_STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STAGING_STRIPE_WEBHOOK_SECRET }}
+          RAZORPAY_KEY_SECRET: ${{ secrets.RAZORPAY_KEY_SECRET }}
+       
           AWS_ENDPOINT_URL_S3: ${{ secrets.STAGING_AWS_ENDPOINT_URL_S3 }}
           AUTH_GITHUB_CLIENT_ID: ${{ secrets.STAGING_AUTH_GITHUB_CLIENT_ID }}
           AUTH_GITHUB_SECRET: ${{ secrets.STAGING_AUTH_GITHUB_SECRET }}

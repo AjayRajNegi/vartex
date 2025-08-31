@@ -8,7 +8,7 @@ export async function adminGetEnrollmentStats() {
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-  const enrollments = await prisma.enrollment.findMany({
+  const enrollments = await prisma.payment.findMany({
     where: {
       createdAt: {
         gte: thirtyDaysAgo,

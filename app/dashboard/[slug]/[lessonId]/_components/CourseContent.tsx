@@ -110,9 +110,9 @@ export function CourseContent({ data }: iAppProps) {
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           {data.title}
         </h1>
-        {data.description && (
+        {/* {data.description && (
           <RenderDescription json={safeParseDescription(data.description)} />
-        )}
+        )} */}
       </div>
     </div>
   );
