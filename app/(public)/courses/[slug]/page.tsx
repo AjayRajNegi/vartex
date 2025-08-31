@@ -269,7 +269,10 @@ export default async function IndividualCoursePage({
                   Watch Course
                 </Link>
               ) : (
-                <EnrollmentButton courseId={course.id} />
+                <>
+                  <EnrollmentButton courseId={course.id} price={course.price} />
+                  {console.log(course.id, course.price)}
+                </>
               )}
               <p className="mt-3 text-center text-xs text-muted-foreground ">
                 30-day money-back guarantee

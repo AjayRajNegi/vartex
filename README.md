@@ -13,7 +13,7 @@ VarTex is a full-featured online learning platform that combines the power of mo
 - **📚 Comprehensive Course Library** - Access a wide range of carefully curated courses designed by industry experts
 - **📊 Progress Tracking** - Monitor your learning journey with detailed analytics and personalized dashboards
 - **🎯 Interactive Learning** - Engage with rich content, videos, and interactive elements
-- **💳 Seamless Payments** - Secure course purchases through Stripe integration
+- **💳 Seamless Payments** - Secure course purchases through Razorpay integration
 - **📱 Responsive Design** - Learn anywhere, anytime with our mobile-optimized platform
 
 ### For Instructors & Admins
@@ -32,7 +32,7 @@ VarTex is a full-featured online learning platform that combines the power of mo
 - **Tailwind CSS** - Utility-first styling
 - **Prisma** - Type-safe database access
 - **PostgreSQL** - Robust relational database
-- **Stripe** - Secure payment processing
+- **Razorpay** - Secure payment processing
 - **AWS S3** - Scalable file storage
 - **Better Auth** - Modern authentication system
 
@@ -54,7 +54,7 @@ VarTex follows a modern, scalable architecture:
 - Node.js 18+
 - PostgreSQL database
 - AWS S3 bucket
-- Stripe account
+- Razorpay account
 - GitHub OAuth app (optional)
 
 ### Installation
@@ -81,8 +81,7 @@ VarTex follows a modern, scalable architecture:
    Configure the following variables:
 
    - `DATABASE_URL` - PostgreSQL connection string
-   - `STRIPE_SECRET_KEY` - Stripe secret key
-   - `STRIPE_WEBHOOK_SECRET` - Stripe webhook secret
+   - `RAZORPAY_KEY_SECRET` - Razorpay secret key
    - `AWS_ENDPOINT_URL_S3` - AWS S3 endpoint
    - `AUTH_GITHUB_CLIENT_ID` - GitHub OAuth client ID
    - `AUTH_GITHUB_SECRET` - GitHub OAuth secret
@@ -138,7 +137,7 @@ vartex/
 
 ### Payment System
 
-- Secure Stripe integration
+- Secure Razorpay integration
 - Course purchase workflow
 - Enrollment management
 - Payment confirmation webhooks
@@ -156,7 +155,7 @@ vartex/
 - **Authorization** - Role-based access control
 - **Bot Protection** - Arcjet integration for security
 - **Data Validation** - Zod schema validation
-- **Secure Payments** - Stripe-certified payment processing
+- **Secure Payments** - Razorpay-certified payment processing
 
 ## 🎨 UI/UX Design
 

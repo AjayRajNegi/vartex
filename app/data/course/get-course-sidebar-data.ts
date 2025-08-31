@@ -56,16 +56,15 @@ export async function getCoursesSidebarData({ slug }: { slug: string }) {
     return notFound();
   }
 
-  const enrollment = await prisma.enrollment.findUnique({
+  const enrollment = await prisma.payment.findFirst({
     where: {
-      userId_courseId: {
-        userId: session.id,
-        courseId: course.id,
-      },
+      userId: session.id,
+      courseId: course.id,
+      status: "SUCCESS",
     },
   });
 
-  if (!enrollment || enrollment.status !== "Active") {
+  if (!enrollment || enrollment.status !== "SUCCESS") {
     return notFound();
   }
 

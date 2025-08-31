@@ -12,7 +12,7 @@ This document provides a comprehensive technical analysis of the VarTex Learning
 - **Styling**: Tailwind CSS 4 with custom UI components (shadcn/ui)
 - **Database**: PostgreSQL with Prisma ORM
 - **Authentication**: Better Auth with email OTP and GitHub OAuth
-- **Payments**: Stripe integration
+- **Payments**: Razorpay integration
 - **File Storage**: AWS S3 for course content and media
 - **Security**: Arcjet for bot protection and rate limiting
 - **Email**: Resend for transactional emails
@@ -23,7 +23,7 @@ Your Prisma schema reveals a well-structured educational platform:
 
 ### **Core Entities**
 
-- **User**: Extended user model with roles, Stripe integration, and moderation features
+- **User**: Extended user model with roles, Razorpay integration, and moderation features
 - **Course**: Hierarchical structure with chapters and lessons
 - **Enrollment**: Payment and access management
 - **LessonProgress**: Detailed progress tracking per user
@@ -33,7 +33,7 @@ Your Prisma schema reveals a well-structured educational platform:
 - **Role-based access** (admin/user)
 - **Course status management** (Draft/Published/Archived)
 - **Progress tracking** with completion status
-- **Payment integration** with Stripe customer IDs
+- **Payment integration** with Razorpay customer IDs
 - **User moderation** (banning system)
 
 ### **Schema Relationships**
@@ -125,17 +125,17 @@ export default createMiddleware(aj, async (req: NextRequest) => {
 
 ## 💳 **Payment & Monetization**
 
-### **Stripe Integration**
+### **Razorpay Integration**
 
 - **Checkout sessions** for course purchases
 - **Webhook handling** for payment confirmation
-- **Customer management** with Stripe customer IDs
+- **Customer management** with Razorpay customer IDs
 - **Enrollment status tracking** (Pending/Active/Cancelled)
 
 ### **Payment Flow**
 
 1. User selects course → Creates enrollment record
-2. Stripe checkout session → User completes payment
+2. Razorpay checkout session → User completes payment
 3. Webhook receives confirmation → Updates enrollment status
 4. User gains access to course content
 
@@ -338,14 +338,14 @@ export const requireUser = cache(async () => {
 
 1. **Creation**: Admin creates course with rich content
 2. **Publishing**: Course status changes to Published
-3. **Enrollment**: Users purchase through Stripe
+3. **Enrollment**: Users purchase through Razorpay
 4. **Learning**: Progress tracking and content consumption
 5. **Completion**: Achievement tracking and analytics
 
 ### **User Journey**
 
 1. **Discovery**: Browse public course catalog
-2. **Enrollment**: Purchase course through Stripe
+2. **Enrollment**: Purchase course through Razorpay
 3. **Learning**: Access content through dashboard
 4. **Progress**: Track completion and achievements
 
@@ -355,7 +355,7 @@ export const requireUser = cache(async () => {
 2. **Scalable Design**: Clear separation of concerns
 3. **Security Focus**: Multi-layered security approach
 4. **Rich Content**: Advanced content creation tools
-5. **Payment Integration**: Complete Stripe workflow
+5. **Payment Integration**: Complete Razorpay workflow
 6. **Progress Tracking**: Detailed learning analytics
 7. **Admin Tools**: Comprehensive course management
 8. **Type Safety**: Full TypeScript implementation
@@ -430,7 +430,7 @@ export const requireUser = cache(async () => {
 - **Jest** for unit testing
 - **Playwright** for E2E testing
 - **Prisma testing** utilities
-- **Stripe testing** environments
+- **Razorpay testing** environments
 
 ## 📚 **Documentation Standards**
 

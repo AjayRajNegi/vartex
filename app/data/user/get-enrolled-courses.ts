@@ -4,8 +4,8 @@ import { requireUser } from "./require-user";
 export async function getEnrolledCourses() {
   const user = await requireUser();
 
-  const data = await prisma.enrollment.findMany({
-    where: { userId: user.id, status: "Active" },
+  const data = await prisma.payment.findMany({
+    where: { userId: user.id, status: "SUCCESS" },
     select: {
       Course: {
         select: {

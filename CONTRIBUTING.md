@@ -25,7 +25,7 @@ Before contributing, make sure you have:
 - **Git** for version control
 - **PostgreSQL** database (local or cloud)
 - **AWS S3** bucket for file storage
-- **Stripe** account for payment testing
+- **Razorpay** account for payment testing
 - **GitHub** account for OAuth testing
 
 ### Fork & Clone
@@ -67,9 +67,9 @@ pnpm install
    AUTH_GITHUB_CLIENT_ID="your_github_client_id"
    AUTH_GITHUB_SECRET="your_github_client_secret"
 
-   # Stripe
-   STRIPE_SECRET_KEY="sk_test_..."
-   STRIPE_WEBHOOK_SECRET="whsec_..."
+   # Razorpay
+   RAZORPAY_KEY_ID=sk_test_...
+   NEXT_PUBLIC_RAZORPAY_KEY_ID=whsec_...
 
    # AWS S3
    AWS_ENDPOINT_URL_S3="https://your-bucket.s3.region.amazonaws.com"

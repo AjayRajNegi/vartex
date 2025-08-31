@@ -12,7 +12,7 @@ export async function adminGetDashboardStats() {
       // total customers
       prisma.user.count({
         where: {
-          enrollment: {
+          payment: {
             some: {},
           },
         },

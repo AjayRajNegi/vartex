@@ -10,17 +10,13 @@ export async function checkIfCourseBought(courseId: string): Promise<boolean> {
 
   if (!session?.user) return false;
 
-  const enrollment = await prisma.enrollment.findUnique({
+  const enrollment = await prisma.payment.findFirst({
     where: {
-      userId_courseId: {
-        courseId: courseId,
-        userId: session.user.id,
-      },
-    },
-    select: {
-      status: true,
+      userId: session.session.userId,
+      courseId: courseId,
+      status: "SUCCESS",
     },
   });
 
-  return enrollment?.status === "Active" ? true : false;
+  return enrollment?.status === "SUCCESS" ? true : false;
 }
