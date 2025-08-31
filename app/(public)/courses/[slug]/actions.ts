@@ -88,15 +88,23 @@ export async function createPayment(
       };
 
       return result;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(
         "[RAZORPAY_ORDER_CREATE] Error creating Razorpay order:",
         error
       );
-      const errorMessage =
-        error.error?.description ||
-        error.message ||
-        "Failed to create payment order. Please try again.";
+
+      let errorMessage = "Failed to create payment order. Please try again.";
+      if (error && typeof error === "object" && "message" in error) {
+        errorMessage =
+          String((error as { message?: string }).message) || errorMessage;
+      }
+      if (error && typeof error === "object" && "error" in error) {
+        errorMessage =
+          (error as { error?: { description?: string } }).error?.description ||
+          errorMessage;
+      }
+
       return { error: errorMessage };
     }
   } catch (error) {
@@ -194,9 +202,7 @@ export async function verifyPayment(
     const user = await prisma.user.findUnique({
       where: { id: userId },
     });
-    const course = await prisma.course.findUnique({
-      where: { id: courseId },
-    });
+
     if (user?.email) {
       // await resend.emails.send({
       //   from: "VarTex <noreply@redsan.in>",
@@ -207,10 +213,13 @@ export async function verifyPayment(
       console.log("Payment Successfull.");
     }
     return { success: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[PAYMENT_VERIFY] Error:", error);
-    const errorMessage =
-      error.message || "Something went wrong during payment verification.";
+    let errorMessage = "Something went wrong during payment verification.";
+    if (error && typeof error === "object" && "message" in error) {
+      errorMessage =
+        String((error as { message?: string }).message) || errorMessage;
+    }
     return { error: errorMessage };
   }
 }

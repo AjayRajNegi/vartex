@@ -40,11 +40,15 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[PAYMENT_VERIFY] Error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+
+    let errorMessage = "Internal server error";
+    if (error && typeof error === "object" && "message" in error) {
+      errorMessage =
+        String((error as { message?: string }).message) || errorMessage;
+    }
+
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

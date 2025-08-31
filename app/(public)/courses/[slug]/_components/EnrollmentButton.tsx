@@ -9,6 +9,55 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 
+interface RazorpaySuccessResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
+interface RazorpayErrorResponse {
+  error: {
+    code: string;
+    description: string;
+    source: string;
+    step: string;
+    reason: string;
+    metadata: {
+      order_id: string;
+      payment_id: string;
+    };
+  };
+}
+
+interface RazorpayOptions {
+  key?: string;
+  amount: number;
+  currency?: string;
+  name: string;
+  description: string;
+  order_id?: string;
+  handler: (response: RazorpaySuccessResponse) => void;
+  prefill?: {
+    name?: string;
+    email?: string;
+  };
+  theme?: {
+    color?: string;
+  };
+}
+
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => {
+      open: () => void;
+      on: (
+        event: "payment.failed",
+        cb: (response: RazorpayErrorResponse) => void
+      ) => void;
+    };
+  }
+}
+
 export function EnrollmentButton({
   courseId,
   price,
@@ -49,7 +98,7 @@ export function EnrollmentButton({
             name: "Your App Name",
             description: `Subscription for ${courseId}`,
             order_id: orderId,
-            handler: async function (response: any) {
+            handler: async function (response: RazorpaySuccessResponse) {
               try {
                 const verificationResult = await fetch("/api/payment/verify", {
                   method: "POST",
@@ -93,8 +142,8 @@ export function EnrollmentButton({
             },
           };
 
-          const rzp = new (window as any).Razorpay(options);
-          rzp.on("payment.failed", function (response: any) {
+          const rzp = new window.Razorpay(options);
+          rzp.on("payment.failed", function (response: RazorpayErrorResponse) {
             toast.error(
               `Payment Failed: ${
                 response.error.description || "Unknown error"
@@ -130,16 +179,3 @@ export function EnrollmentButton({
     </>
   );
 }
-
-// const { data: result, error } = await tryCatch(
-//   enrollInCourseAction(courseId)
-// );
-// if (error) {
-//   toast.error("An unexpected error occured.");
-//   return;
-// }
-// if (result.status === "success") {
-//   toast.success(result.message);
-// } else if (result.status === "error") {
-//   toast.error(result.message);
-// }
