@@ -1,13 +1,13 @@
 "use client";
 
 import { toast } from "sonner";
+import Script from "next/script";
 import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { createPayment } from "../actions";
-import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import Script from "next/script";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
 
 export function EnrollmentButton({
   courseId,

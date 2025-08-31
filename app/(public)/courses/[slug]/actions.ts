@@ -1,8 +1,8 @@
 "use server";
-import { prisma } from "@/lib/db";
-import Razorpay from "razorpay";
 import crypto from "crypto";
-import { Resend } from "resend";
+import Razorpay from "razorpay";
+import { prisma } from "@/lib/db";
+// import { Resend } from "resend";
 
 interface PaymentData {
   amount: number;

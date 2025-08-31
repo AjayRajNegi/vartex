@@ -1,5 +1,5 @@
-import { verifyPayment } from "@/app/(public)/courses/[slug]/actions";
 import { NextResponse } from "next/server";
+import { verifyPayment } from "@/app/(public)/courses/[slug]/actions";
 
 export async function POST(req: Request) {
   console.log("HElasd");
