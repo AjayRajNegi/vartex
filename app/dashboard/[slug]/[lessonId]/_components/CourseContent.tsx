@@ -8,7 +8,7 @@ import { useConfetti } from "@/hooks/use-confetti";
 import { BookIcon, CheckCircle } from "lucide-react";
 import { useConstruct } from "@/hooks/use-construct-url";
 import { LessonContentType } from "@/app/data/course/get-lesson-content";
-import { RenderDescription } from "@/components/rich-text-editor/RenderDesctiption";
+import { RenderDescription } from "@/components/rich-text-editor/RenderDescription";
 
 interface iAppProps {
   data: LessonContentType;
@@ -110,9 +110,9 @@ export function CourseContent({ data }: iAppProps) {
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           {data.title}
         </h1>
-        {/* {data.description && (
+        {data.description && (
           <RenderDescription json={safeParseDescription(data.description)} />
-        )} */}
+        )}
       </div>
     </div>
   );

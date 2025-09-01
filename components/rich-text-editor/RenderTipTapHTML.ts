@@ -1,31 +1,10 @@
-import StarterKit from "@tiptap/starter-kit";
+"use client";
+
+import { generateHTML } from "@tiptap/html";
 import { type JSONContent } from "@tiptap/react";
-import TextAlign from "@tiptap/extension-text-align";
+import { extensions } from "../../lib/extensions";
 
-let generateHTMLFn: typeof import("@tiptap/html").generateHTML;
-
-// Pick correct implementation at runtime
-if (typeof window === "undefined") {
-  // SSR
-  import("@tiptap/html/server").then((mod) => {
-    generateHTMLFn = mod.generateHTML;
-  });
-} else {
-  // CSR
-  import("@tiptap/html").then((mod) => {
-    generateHTMLFn = mod.generateHTML;
-  });
-}
-
-export function renderTipTapHTML(json: JSONContent) {
-  if (!generateHTMLFn) {
-    throw new Error("generateHTML function not loaded yet");
-  }
-
-  return generateHTMLFn(json, [
-    StarterKit,
-    TextAlign.configure({
-      types: ["heading", "paragraph"],
-    }),
-  ]);
+export function renderTipTapHTML(json: JSONContent): string {
+  if (!json) return "";
+  return generateHTML(json, extensions);
 }
