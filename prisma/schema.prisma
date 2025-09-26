@@ -1,181 +1,181 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+    provider = "prisma-client-js"
+    output   = "../lib/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id            String   @id
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
+    id            String   @id
+    name          String
+    email         String
+    emailVerified Boolean
+    image         String?
+    createdAt     DateTime
+    updatedAt     DateTime
 
-  lessonProgress LessonProgress[]
-  payment        Payment[]
-  sessions       Session[]
-  accounts       Account[]
-  courses        Course[]
+    lessonProgress LessonProgress[]
+    payment        Payment[]
+    sessions       Session[]
+    accounts       Account[]
+    courses        Course[]
 
-  role       String?
-  banned     Boolean?
-  banReason  String?
-  banExpires DateTime?
+    role       String?
+    banned     Boolean?
+    banReason  String?
+    banExpires DateTime?
 
-  @@unique([email])
-  @@map("user")
+    @@unique([email])
+    @@map("user")
 }
 
 model Session {
-  id        String   @id
-  expiresAt DateTime
-  token     String
-  createdAt DateTime
-  updatedAt DateTime
-  ipAddress String?
-  userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id        String   @id
+    expiresAt DateTime
+    token     String
+    createdAt DateTime
+    updatedAt DateTime
+    ipAddress String?
+    userAgent String?
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  impersonatedBy String?
+    impersonatedBy String?
 
-  @@unique([token])
-  @@map("session")
+    @@unique([token])
+    @@map("session")
 }
 
 model Account {
-  id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
-  createdAt             DateTime
-  updatedAt             DateTime
+    id                    String    @id
+    accountId             String
+    providerId            String
+    userId                String
+    user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    accessToken           String?
+    refreshToken          String?
+    idToken               String?
+    accessTokenExpiresAt  DateTime?
+    refreshTokenExpiresAt DateTime?
+    scope                 String?
+    password              String?
+    createdAt             DateTime
+    updatedAt             DateTime
 
-  @@map("account")
+    @@map("account")
 }
 
 model Verification {
-  id         String    @id
-  identifier String
-  value      String
-  expiresAt  DateTime
-  createdAt  DateTime?
-  updatedAt  DateTime?
+    id         String    @id
+    identifier String
+    value      String
+    expiresAt  DateTime
+    createdAt  DateTime?
+    updatedAt  DateTime?
 
-  @@map("verification")
+    @@map("verification")
 }
 
 model Course {
-  id String @id @default(uuid())
+    id String @id @default(uuid())
 
-  title       String
-  description String
-  fileKey     String
-  price       Int
-  duration    Int
-  level       CourseLevel @default(Beginner)
+    title       String
+    description String
+    fileKey     String
+    price       Int
+    duration    Int
+    level       CourseLevel @default(Beginner)
 
-  category         String
-  smallDescription String
-  slug             String @unique
+    category         String
+    smallDescription String
+    slug             String @unique
 
-  status CourseStatus @default(Draft)
+    status CourseStatus @default(Draft)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  chapter   Chapter[]
-  payment   Payment[]
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    chapter   Chapter[]
+    payment   Payment[]
 }
 
 enum CourseLevel {
-  Beginner
-  Intermediate
-  Advanced
+    Beginner
+    Intermediate
+    Advanced
 }
 
 enum CourseStatus {
-  Draft
-  Published
-  Archived
+    Draft
+    Published
+    Archived
 }
 
 model Chapter {
-  id       String @id @default(uuid())
-  title    String
-  position Int
+    id       String @id @default(uuid())
+    title    String
+    position Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  courseId  String
-  lessons   Lesson[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+    courseId  String
+    lessons   Lesson[]
 }
 
 model Lesson {
-  id           String  @id @default(uuid())
-  title        String
-  description  String?
-  thumbnailKey String?
-  videoKey     String?
-  position     Int
+    id           String  @id @default(uuid())
+    title        String
+    description  String?
+    thumbnailKey String?
+    videoKey     String?
+    position     Int
 
-  lessonProgress LessonProgress[]
+    lessonProgress LessonProgress[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Chapter   Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-  chapterId String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Chapter   Chapter? @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+    chapterId String?
 }
 
 model LessonProgress {
-  id String @id @default(uuid())
+    id String @id @default(uuid())
 
-  completed Boolean @default(false)
+    completed Boolean @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  Lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  lessonId  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String
+    Lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+    lessonId  String
 
-  @@unique([userId, lessonId])
+    @@unique([userId, lessonId])
 }
 
 model Payment {
-  id String @id @default(uuid())
+    id String @id @default(uuid())
 
-  amount            Float
-  currency          String
-  receiptId         String?
-  status            String
-  razorpayOrderId   String   @unique
-  razorpayPaymentId String?
-  method            String?
-  description       String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+    amount            Float
+    currency          String
+    receiptId         String?
+    status            String
+    razorpayOrderId   String   @unique
+    razorpayPaymentId String?
+    method            String?
+    description       String?
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
 
-  User     User   @relation(fields: [userId], references: [id])
-  userId   String
-  Course   Course @relation(fields: [courseId], references: [id])
-  courseId String
+    User     User   @relation(fields: [userId], references: [id])
+    userId   String
+    Course   Course @relation(fields: [courseId], references: [id])
+    courseId String
 
-  @@index([userId, courseId, status])
+    @@index([userId, courseId, status])
 }
