@@ -1,28 +1,28 @@
-# 🎓 VarTex - The Future of Online Education
+# VarTex - The Future of Online Education
 
 Welcome to **VarTex**, a modern, interactive learning management system designed to revolutionize how people learn online. Built with cutting-edge technology and a focus on user experience, VarTex provides a comprehensive platform for both learners and educators.
 
-## ✨ What is VarTex?
+## What is VarTex?
 
 VarTex is a full-featured online learning platform that combines the power of modern web technologies with intuitive design to create an exceptional learning experience. Whether you're a student looking to expand your skills or an instructor wanting to share your knowledge, VarTex provides all the tools you need.
 
-## 🚀 Key Features
+## Key Features
 
 ### For Learners
 
-- **📚 Comprehensive Course Library** - Access a wide range of carefully curated courses designed by industry experts
-- **📊 Progress Tracking** - Monitor your learning journey with detailed analytics and personalized dashboards
-- **🎯 Interactive Learning** - Engage with rich content, videos, and interactive elements
-- **💳 Seamless Payments** - Secure course purchases through Razorpay integration
-- **📱 Responsive Design** - Learn anywhere, anytime with our mobile-optimized platform
+- ** Comprehensive Course Library** - Access a wide range of carefully curated courses designed by industry experts
+- ** Progress Tracking** - Monitor your learning journey with detailed analytics and personalized dashboards
+- ** Interactive Learning** - Engage with rich content, videos, and interactive elements
+- ** Seamless Payments** - Secure course purchases through Razorpay integration
+- ** Responsive Design** - Learn anywhere, anytime with our mobile-optimized platform
 
 ### For Instructors & Admins
 
-- **🛠️ Rich Content Creation** - Create engaging courses with our advanced rich text editor
-- **📁 File Management** - Upload and organize course materials with AWS S3 integration
-- **📈 Analytics Dashboard** - Track enrollment statistics and course performance
-- **🎨 Course Management** - Organize content with chapters and lessons
-- **🔒 Admin Controls** - Manage users, courses, and platform settings
+- ** Rich Content Creation** - Create engaging courses with our advanced rich text editor
+- ** File Management** - Upload and organize course materials with AWS S3 integration
+- ** Analytics Dashboard** - Track enrollment statistics and course performance
+- ** Course Management** - Organize content with chapters and lessons
+- ** Admin Controls** - Manage users, courses, and platform settings
 
 ## 🛠️ Built With
 
@@ -36,7 +36,7 @@ VarTex is a full-featured online learning platform that combines the power of mo
 - **AWS S3** - Scalable file storage
 - **Better Auth** - Modern authentication system
 
-## 🏗️ Architecture
+##  Architecture
 
 VarTex follows a modern, scalable architecture:
 
@@ -47,7 +47,7 @@ VarTex follows a modern, scalable architecture:
 - **Database Layer** - Prisma ORM with PostgreSQL
 - **File Storage** - AWS S3 for media and course content
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -119,7 +119,7 @@ vartex/
 └── prisma/                # Database schema and migrations
 ```
 
-## 🎯 Core Functionality
+##  Core Functionality
 
 ### Course Management
 
@@ -149,7 +149,7 @@ vartex/
 - User profiles and progress tracking
 - Admin user management
 
-## 🔒 Security Features
+## Security Features
 
 - **Authentication** - Secure login with email OTP and OAuth
 - **Authorization** - Role-based access control
@@ -157,7 +157,7 @@ vartex/
 - **Data Validation** - Zod schema validation
 - **Secure Payments** - Razorpay-certified payment processing
 
-## 🎨 UI/UX Design
+## UI/UX Design
 
 - **Modern Interface** - Clean, intuitive design
 - **Responsive Layout** - Works on all devices
@@ -165,7 +165,7 @@ vartex/
 - **Accessibility** - WCAG compliant components
 - **Loading States** - Smooth user experience
 
-## 📈 Performance
+## Performance
 
 - **Server Components** - Optimized rendering
 - **Image Optimization** - Next.js image optimization
@@ -173,22 +173,22 @@ vartex/
 - **Caching** - Strategic caching for better performance
 - **Code Splitting** - Automatic bundle optimization
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Built with [Next.js](https://nextjs.org/)
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Icons from [Tabler Icons](https://tabler-icons.io/)
 - Rich text editing with [TipTap](https://tiptap.dev/)
 
-## 📞 Support
+## Support
 
 If you have any questions or need help, please:
 
